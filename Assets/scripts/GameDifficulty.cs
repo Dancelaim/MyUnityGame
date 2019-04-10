@@ -13,7 +13,7 @@ public class GameDifficulty : MonoBehaviour
 
     private void Awake()
     {
-        Difficulty = "Start";
+        Difficulty = "Starter";
     }
 
     private void Update()
@@ -22,7 +22,7 @@ public class GameDifficulty : MonoBehaviour
 
         if (DifficultyCheck)
         {
-            if (hpValue >= 5 && killsValue > 3 && missedKillsValue < 5 && Difficulty == "Start")
+            if (hpValue >= 5 && killsValue > 3 && missedKillsValue < 5 && Difficulty == "Starter")
             {
                 DifficultySetter("Normal");
                 timeLeft += 10f;
