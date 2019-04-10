@@ -2,8 +2,12 @@
 # Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/MyUnityGame/v15/Server/sqlite3
+/.vs/MyUnityGame/v15
 /Library
 /Logs
 /obj/Debug
 /ProjectSettings
+/Temp
+/Packages
+/ProjectSettings
+
