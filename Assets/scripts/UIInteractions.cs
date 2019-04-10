@@ -13,7 +13,7 @@ public class UIInteractions : MonoBehaviour
     float timeLeft;
     public float CoolDownTime;
     float delay;
-    public float PublicDelay;
+    public float Delay;
 
     void Awake()
     {
@@ -78,7 +78,7 @@ public class UIInteractions : MonoBehaviour
                 if (Col.tag == "Alien") Enemies.Add(Col);
             }
             GameObject Scripts = GameObject.Find("Scripts");
-            RocketScript rocketLaunch = Scripts.GetComponent<RocketScript>();
+            MissileScript rocketLaunch = Scripts.GetComponent<MissileScript>();
 
             StopSpawnScript();
             StartCoroutine(LaunchBarrageRoutine(pos,rocketLaunch));
@@ -89,12 +89,11 @@ public class UIInteractions : MonoBehaviour
         }
     }
 
-    IEnumerator LaunchBarrageRoutine(Vector2 pos, RocketScript rocketLaunch)
+    IEnumerator LaunchBarrageRoutine(Vector2 pos, MissileScript MissileLaunch)
     {
-
             foreach (Collider2D Enemy in Enemies)
             {
-                rocketLaunch.AutoAim(pos, Enemy);
+                MissileLaunch.AutoAim(pos, Enemy);
                 yield return new WaitForSeconds(0.07f);
             }
     }
