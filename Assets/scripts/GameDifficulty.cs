@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameDifficulty : MonoBehaviour
 {
-    public bool DifficultyCheck;
+    bool DifficultyCheck;
     float timeLeft = 10f;
     private int hpValue;
     private int killsValue;

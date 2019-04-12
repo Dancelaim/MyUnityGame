@@ -17,19 +17,20 @@ public class MissileScript : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.5f);
 
-        float timeToReachTargetPosition = Vector3.Distance(shotTransform.position,Enemy.transform.position) / speed;
+        float timeToReachTargetPosition = Enemy ? Vector3.Distance(shotTransform.position, Enemy.transform.position) / speed : 1; 
+        
 
-            float time = 0.0f;
-            while (time < 1)
+        float time = 0.0f;
+        while (time < 1)
+        {
+            time += Time.deltaTime / timeToReachTargetPosition;
+
+            if (Enemy && shotTransform)
             {
-                time += Time.deltaTime / timeToReachTargetPosition;
-
-                if (Enemy && shotTransform)
-                {
-                    shotTransform.transform.position = Vector3.Lerp(shotTransform.position, Enemy.transform.position, time);
-                }
-
-                yield return null;
+                shotTransform.transform.right = Enemy.transform.position - shotTransform.transform.position;
+                shotTransform.transform.position = Vector3.Lerp(shotTransform.position, Enemy.transform.position, time);
             }
+            yield return null;
+        }
     }
 }
