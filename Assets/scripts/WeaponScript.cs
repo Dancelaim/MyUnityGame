@@ -29,11 +29,10 @@ public class WeaponScript : MonoBehaviour
         {
             shootCooldown = shootingRate;
 
-            // Create a new shot
+            
             var shotTransform = Instantiate(shotPrefab) as Transform;
 
-            // Assign position
-            //shotTransform.position = transform.position;
+            
             if (isEnemy == true) {
 
                 var pos = transform.position + new Vector3(-1.2f, 0, 1);
@@ -47,25 +46,21 @@ public class WeaponScript : MonoBehaviour
                 shotTransform.position = pos;
             }
 
-            // The is enemy property
             ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript>();
             if (shot != null)
             {
                 shot.isEnemyShot = isEnemy;
             }
 
-            // Make the weapon shot always towards it
+            
             MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
             if (move != null)
             {
-                move.direction = this.transform.right; // towards in 2D space is the right of the sprite
+                move.direction = this.transform.right; 
             }
         }
     }
-
-    /// <summary>
-    /// Is the weapon ready to create a new projectile?
-    /// </summary>
+    
     public bool CanAttack
     {
         get

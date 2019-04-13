@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Enemy generic behavior
-/// </summary>
+
 public class EnemyScript : MonoBehaviour
 {
     private bool hasSpawn;
@@ -14,10 +12,10 @@ public class EnemyScript : MonoBehaviour
 
     void Awake()
     {
-        // Retrieve the weapon only once
+        
         weapons = GetComponentsInChildren<WeaponScript>();
 
-        // Retrieve scripts to disable when not spawn
+       
         moveScript = GetComponent<MoveScript>();
 
         coliderComponent = GetComponent<PolygonCollider2D>();
@@ -25,7 +23,7 @@ public class EnemyScript : MonoBehaviour
         rendererComponent = GetComponent<SpriteRenderer>();
     }
 
-    // 1 - Disable everything
+    
     void Start()
     {
         hasSpawn = false;
@@ -40,7 +38,6 @@ public class EnemyScript : MonoBehaviour
 
     void Update()
     {
-        // 2 - Check if the enemy has spawned.
         if (hasSpawn == false)
         {
             if (rendererComponent.IsVisibleFrom(Camera.main))
@@ -50,7 +47,7 @@ public class EnemyScript : MonoBehaviour
         }
         else
         {
-            // Auto-fire
+           
             foreach (WeaponScript weapon in weapons)
             {
                 if (weapon != null && weapon.enabled && weapon.CanAttack)
@@ -60,7 +57,7 @@ public class EnemyScript : MonoBehaviour
                 }
             }
 
-            // 4 - Out of the camera ? Destroy the game object.
+          
             if (!rendererComponent.IsVisibleFrom(Camera.main))
             {
                 if (gameObject.tag == "Alien")

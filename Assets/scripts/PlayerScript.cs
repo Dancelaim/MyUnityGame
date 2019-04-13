@@ -27,9 +27,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         bool shoot = false;
-        //float inputX = Input.GetAxis("Horizontal");
-        //float inputY = Input.GetAxis("Vertical");
-
+       
         if (Input.GetButton("Fire1")) shoot = true;
 
         var HpCounter = FindObjectOfType<ResourceManager>();
@@ -96,10 +94,7 @@ public class PlayerScript : MonoBehaviour
         {
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), mobileSpeed * Time.deltaTime);
         }
-        //if (Physics2D.OverlapCircle(targetPosition, 0.3f))
-        //{
-        //    this.transform.position = transform.position;
-        //} 
+       
     }
 
     private void StartDelay()

@@ -54,13 +54,13 @@ public class UIInteractions : MonoBehaviour
 
     public void ExitToMenu()
     {
-        // Reload the level
+       
         SceneManager.LoadScene("Menu");
     }
 
     public void RestartGame()
     {
-        // Reload the level
+       
         SceneManager.LoadScene("Stage1");
     }
 
