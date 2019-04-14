@@ -84,15 +84,15 @@ public class PlayerScript : MonoBehaviour
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButton(0))
             {
                 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) != null ? Camera.main.ScreenToWorldPoint(Input.mousePosition) : Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-                RemainingFuel();
             }
         }
         else StartDelay();
 
 
-        if (targetPosition != transform.position && !Physics2D.OverlapCircle(targetPosition, 0.05f) || !EventSystem.current.IsPointerOverGameObject())
+        if (!Physics2D.OverlapCircle(targetPosition, 0.03f))
         {
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), mobileSpeed * Time.deltaTime);
+            Heating();
         }
        
     }
@@ -134,7 +134,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void RemainingFuel()
+    public void Heating()
     {
         
         Temp += burnRate * Time.deltaTime;
