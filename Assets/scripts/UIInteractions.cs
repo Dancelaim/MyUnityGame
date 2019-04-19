@@ -94,7 +94,7 @@ public class UIInteractions : MonoBehaviour
             foreach (Collider2D Enemy in Enemies)
             {
                 MissileLaunch.AutoAim(pos, Enemy);
-                yield return new WaitForSeconds(0.04f);
+                yield return new WaitForSeconds(0.08f);
             }
     }
 
