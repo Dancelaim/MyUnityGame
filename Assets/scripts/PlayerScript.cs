@@ -16,12 +16,21 @@ public class PlayerScript : MonoBehaviour
     public float burnRate = 5;
     public float restoreRate = 5;
     bool delay = false;
+    float dist;
+    float leftBorder;
+    float rightBorder;
+    float topBorder;
+    float bottomBorder;
 
 
     public void Awake()
     {
         startPosition = transform.position;
-
+        dist = (transform.position - Camera.main.transform.position).z;
+        leftBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0f, dist)).x;
+        rightBorder = Camera.main.ViewportToWorldPoint(new Vector3(1, 0f, dist)).x;
+        topBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.1f, dist)).y;
+        bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 1f, dist)).y;
     }
 
     void Update()
@@ -48,18 +57,7 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
-
-        var dist = (transform.position - Camera.main.transform.position).z;
-        var leftBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0f, dist)).x;
-        var rightBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0f, dist)).x;
-        var topBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.05f, dist)).y;
-        var bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.95f, dist)).y;
-
-        transform.position = new Vector3(
-          Mathf.Clamp(transform.position.x, leftBorder, rightBorder),
-          Mathf.Clamp(transform.position.y, topBorder, bottomBorder),
-          transform.position.z
-        );
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, leftBorder, rightBorder),Mathf.Clamp(transform.position.y, topBorder, bottomBorder));
 
     }
     void FixedUpdate()
@@ -89,12 +87,14 @@ public class PlayerScript : MonoBehaviour
         else StartDelay();
 
 
-        if (!Physics2D.OverlapCircle(targetPosition, 0.03f))
+        if (!Physics2D.OverlapCircle(targetPosition, 0.03f) && BottomCheck(targetPosition))
         {
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), mobileSpeed * Time.deltaTime);
             Heating();
         }
-       
+        //targetPosition.y
+
+
     }
 
     private void StartDelay()
@@ -145,7 +145,21 @@ public class PlayerScript : MonoBehaviour
             counter.TempRemainsCounter(Temp);
         }
     }
-}
 
+    public bool BottomCheck(Vector3 targetPosition)
+    {
+        float Top = 9.4f;
+        float Bottom = -9f;
+        if(targetPosition.y < Top)
+        {
+            if (targetPosition.y > Bottom)
+            {
+                return true;
+            }
+            return false;
+        }
+      return false;
+    }
+}
 
 
