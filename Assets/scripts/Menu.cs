@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 
 
-public class MenuScript : MonoBehaviour
+public class Menu : MonoBehaviour
 {
     public void StartGame()
     {

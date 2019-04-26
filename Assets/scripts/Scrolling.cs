@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 
-public class ScrollingScript : MonoBehaviour
+public class Scrolling : MonoBehaviour
 {
     
     public Vector2 speed = new Vector2(10, 10);

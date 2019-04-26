@@ -73,7 +73,7 @@ public class GameDifficulty : MonoBehaviour
     {
         var counter = FindObjectOfType<ResourceManager>();
         
-        var Spawner = FindObjectOfType<SpawnScript>();
+        var Spawner = FindObjectOfType<Spawn>();
         if (Spawner)
         {
             switch (Mode)

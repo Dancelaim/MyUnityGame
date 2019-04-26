@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
 
-public class EnemyScript : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     private bool hasSpawn;
-    private MoveScript moveScript;
-    private WeaponScript[] weapons;
+    private Move moveScript;
+    private Weapon[] weapons;
     private PolygonCollider2D coliderComponent;
     private SpriteRenderer rendererComponent;
    
@@ -13,10 +13,10 @@ public class EnemyScript : MonoBehaviour
     void Awake()
     {
         
-        weapons = GetComponentsInChildren<WeaponScript>();
+        weapons = GetComponentsInChildren<Weapon>();
 
        
-        moveScript = GetComponent<MoveScript>();
+        moveScript = GetComponent<Move>();
 
         coliderComponent = GetComponent<PolygonCollider2D>();
 
@@ -30,7 +30,7 @@ public class EnemyScript : MonoBehaviour
        
         moveScript.enabled = false;
 
-        foreach (WeaponScript weapon in weapons)
+        foreach (Weapon weapon in weapons)
         {
             weapon.enabled = false;
         }
@@ -48,7 +48,7 @@ public class EnemyScript : MonoBehaviour
         else
         {
            
-            foreach (WeaponScript weapon in weapons)
+            foreach (Weapon weapon in weapons)
             {
                 if (weapon != null && weapon.enabled && weapon.CanAttack)
                 {
@@ -77,7 +77,7 @@ public class EnemyScript : MonoBehaviour
     private void Spawn()
     {
         hasSpawn = coliderComponent.enabled = moveScript.enabled = true;
-        foreach (WeaponScript weapon in weapons)
+        foreach (Weapon weapon in weapons)
         {
             weapon.enabled = true;
         }

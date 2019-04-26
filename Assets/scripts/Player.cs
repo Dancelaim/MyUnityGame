@@ -2,11 +2,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerScript : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public Vector2 speed = new Vector2(50, 50);
     public float mobileSpeed;
-    private WeaponScript[] weapons;
+    private Weapon[] weapons;
     public bool damagePlayer;
     private Vector2 movement;
     private Rigidbody2D rigidbodyComponent;
@@ -40,14 +40,14 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetButton("Fire1")) shoot = true;
 
         var HpCounter = FindObjectOfType<ResourceManager>();
-        HealthScript playerHealth = GetComponent<HealthScript>();
+        Health playerHealth = GetComponent<Health>();
         HpCounter.HpBarSchema(playerHealth.hp);
 
         if (shoot)
         {
-            weapons = GetComponentsInChildren<WeaponScript>();
+            weapons = GetComponentsInChildren<Weapon>();
 
-            foreach (WeaponScript weapon in weapons)
+            foreach (Weapon weapon in weapons)
             {
                 if (weapon != null && weapon.CanAttack)
                 {
@@ -92,7 +92,7 @@ public class PlayerScript : MonoBehaviour
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), mobileSpeed * Time.deltaTime);
             Heating();
         }
-        //targetPosition.y
+        
 
 
     }

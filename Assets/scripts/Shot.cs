@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ShotScript : MonoBehaviour
+public class Shot : MonoBehaviour
 {
     CircleCollider2D shotCollider;
     private SpriteRenderer rendererComponent;

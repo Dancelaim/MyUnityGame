@@ -31,7 +31,7 @@ public class UIInteractions : MonoBehaviour
         else
         {
             GameObject Scripts = GameObject.Find("Scripts");
-            SpawnScript SpawnScript = Scripts.GetComponent<SpawnScript>();
+            Spawn SpawnScript = Scripts.GetComponent<Spawn>();
             SpawnScript.enabled = true;
         }
     }
@@ -78,9 +78,9 @@ public class UIInteractions : MonoBehaviour
                 if (Col.tag == "Alien") Enemies.Add(Col);
             }
             GameObject Scripts = GameObject.Find("Scripts");
-            MissileScript rocketLaunch = Scripts.GetComponent<MissileScript>();
+            Missile rocketLaunch = Scripts.GetComponent<Missile>();
 
-            StopSpawnScript();
+            StopSpawn();
             StartCoroutine(LaunchBarrageRoutine(pos,rocketLaunch));
         }
         if (timeLeft < 1)
@@ -89,7 +89,7 @@ public class UIInteractions : MonoBehaviour
         }
     }
 
-    IEnumerator LaunchBarrageRoutine(Vector2 pos, MissileScript MissileLaunch)
+    IEnumerator LaunchBarrageRoutine(Vector2 pos, Missile MissileLaunch)
     {
             foreach (Collider2D Enemy in Enemies)
             {
@@ -98,10 +98,10 @@ public class UIInteractions : MonoBehaviour
             }
     }
 
-    public void StopSpawnScript()
+    public void StopSpawn()
     {
         GameObject Scripts = GameObject.Find("Scripts");
-        SpawnScript SpawnScript = Scripts.GetComponent<SpawnScript>();
+        Spawn SpawnScript = Scripts.GetComponent<Spawn>();
         SpawnScript.enabled = false;
     }
 }

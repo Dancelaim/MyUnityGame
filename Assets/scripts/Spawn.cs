@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class SpawnScript : MonoBehaviour
+public class Spawn : MonoBehaviour
 {
     public GameObject[] Objects;
     private Vector2 position;

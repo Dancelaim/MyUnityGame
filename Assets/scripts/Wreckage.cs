@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class WreckageScript : MonoBehaviour
+public class Wreckage : MonoBehaviour
 {
     private bool hasSpawn;
-    private MoveScript moveScript;
+    private Move moveScript;
     private Collider2D coliderComponent;
     private SpriteRenderer rendererComponent;
 
@@ -11,7 +11,7 @@ public class WreckageScript : MonoBehaviour
     {
 
         
-        moveScript = GetComponent<MoveScript>();
+        moveScript = GetComponent<Move>();
 
         coliderComponent = GetComponent<Collider2D>();
 
@@ -61,7 +61,7 @@ public class WreckageScript : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D collision)
     {
-        ShotScript shot = collision.gameObject.GetComponent<ShotScript>();
+        Shot shot = collision.gameObject.GetComponent<Shot>();
         if (shot != null)
         {
             moveScript.direction = new Vector2(1,Random.Range(-3.0f, 3.0f));

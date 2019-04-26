@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI; 
 
-public class ProgressBarScript : MonoBehaviour
+public class ProgressBar : MonoBehaviour
 {
     public Image cooldown;
     bool coolingDown;

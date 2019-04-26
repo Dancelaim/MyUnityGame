@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class WeaponScript : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
 
     public Transform shotPrefab;
@@ -46,14 +46,14 @@ public class WeaponScript : MonoBehaviour
                 shotTransform.position = pos;
             }
 
-            ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript>();
+            Shot shot = shotTransform.gameObject.GetComponent<Shot>();
             if (shot != null)
             {
                 shot.isEnemyShot = isEnemy;
             }
 
             
-            MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
+            Move move = shotTransform.gameObject.GetComponent<Move>();
             if (move != null)
             {
                 move.direction = this.transform.right;
