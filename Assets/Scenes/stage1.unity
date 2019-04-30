@@ -419,7 +419,7 @@ MonoBehaviour:
   - {fileID: 1101261495731668, guid: d16c9acfb7a89ed4f9d7cf1f82ccba43, type: 3}
   - {fileID: 1866534839946968, guid: 5fbbb1ed9f15dd844b8266827f7c0481, type: 3}
   cam: {fileID: 2040838322}
-  maxEnemies: 2
+  maxEnemies: 3
   maxWreckages: 0
 --- !u!114 &254039405
 MonoBehaviour:
