@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 
-public class MoveScript : MonoBehaviour
+public class Move : MonoBehaviour
 {
     
     public Vector2 speed = new Vector2(10, 10);

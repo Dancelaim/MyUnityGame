@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class HealthScript : MonoBehaviour
+public class Health : MonoBehaviour
 {
     public int hp = 1;
     public bool isEnemy;
@@ -10,7 +10,7 @@ public class HealthScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
+        Shot shot = otherCollider.gameObject.GetComponent<Shot>();
         if (shot != null)
         {
             if (shot.isEnemyShot && isPlayer)
@@ -27,14 +27,14 @@ public class HealthScript : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        EnemyScript enemy = isEnemy ? this.GetComponent<EnemyScript>() : collision != null ? collision.gameObject.GetComponent<EnemyScript>() : null;
-        HealthScript enemyHealth = enemy ? enemy.GetComponent<HealthScript>() : null;
+        Enemy enemy = isEnemy ? this.GetComponent<Enemy>() : collision != null ? collision.gameObject.GetComponent<Enemy>() : null;
+        Health enemyHealth = enemy ? enemy.GetComponent<Health>() : null;
    
-        PlayerScript player = isPlayer ? this.GetComponent<PlayerScript>() : collision != null ? collision.gameObject.GetComponent<PlayerScript>() : null;
-        HealthScript playerHealth = player ? player.GetComponent<HealthScript>() : null;
+        Player player = isPlayer ? this.GetComponent<Player>() : collision != null ? collision.gameObject.GetComponent<Player>() : null;
+        Health playerHealth = player ? player.GetComponent<Health>() : null;
 
-        WreckageScript wreckage = isWreckage ? this.GetComponent<WreckageScript>() : collision != null ? collision.gameObject.GetComponent<WreckageScript>() : null;
-        HealthScript wreckageHealth = wreckage ? wreckage.GetComponent<HealthScript>() : null;
+        Wreckage wreckage = isWreckage ? this.GetComponent<Wreckage>() : collision != null ? collision.gameObject.GetComponent<Wreckage>() : null;
+        Health wreckageHealth = wreckage ? wreckage.GetComponent<Health>() : null;
 
         var HpCounter = FindObjectOfType<ResourceManager>();
 

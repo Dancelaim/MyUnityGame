@@ -2,26 +2,35 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerScript : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public Vector2 speed = new Vector2(50, 50);
     public float mobileSpeed;
-    private WeaponScript[] weapons;
+    private Weapon[] weapons;
     public bool damagePlayer;
     private Vector2 movement;
     private Rigidbody2D rigidbodyComponent;
     public bool CanMove;
     Vector3 startPosition;
-    public float Temp;
-    public float burnRate;
-    public float restoreRate;
+    float Temp = 0;
+    public float burnRate = 5;
+    public float restoreRate = 5;
     bool delay = false;
+    float dist;
+    float leftBorder;
+    float rightBorder;
+    float topBorder;
+    float bottomBorder;
 
 
     public void Awake()
     {
         startPosition = transform.position;
-        Temp = 0;
+        dist = (transform.position - Camera.main.transform.position).z;
+        leftBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0f, dist)).x;
+        rightBorder = Camera.main.ViewportToWorldPoint(new Vector3(1, 0f, dist)).x;
+        topBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.1f, dist)).y;
+        bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 1f, dist)).y;
     }
 
     void Update()
@@ -31,14 +40,14 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetButton("Fire1")) shoot = true;
 
         var HpCounter = FindObjectOfType<ResourceManager>();
-        HealthScript playerHealth = GetComponent<HealthScript>();
+        Health playerHealth = GetComponent<Health>();
         HpCounter.HpBarSchema(playerHealth.hp);
 
         if (shoot)
         {
-            weapons = GetComponentsInChildren<WeaponScript>();
+            weapons = GetComponentsInChildren<Weapon>();
 
-            foreach (WeaponScript weapon in weapons)
+            foreach (Weapon weapon in weapons)
             {
                 if (weapon != null && weapon.CanAttack)
                 {
@@ -48,18 +57,7 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
-
-        var dist = (transform.position - Camera.main.transform.position).z;
-        var leftBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0f, dist)).x;
-        var rightBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0f, dist)).x;
-        var topBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.1f, dist)).y;
-        var bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.9f, dist)).y;
-
-        transform.position = new Vector3(
-          Mathf.Clamp(transform.position.x, leftBorder, rightBorder),
-          Mathf.Clamp(transform.position.y, topBorder, bottomBorder),
-          transform.position.z
-        );
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, leftBorder, rightBorder),Mathf.Clamp(transform.position.y, topBorder, bottomBorder));
 
     }
     void FixedUpdate()
@@ -77,7 +75,7 @@ public class PlayerScript : MonoBehaviour
     {
         Vector3 targetPosition = transform.position;
 
-        RestoreTemperature();
+        RestoringTemperature();
 
         if (Temp <= 100 && !delay)
         {
@@ -89,12 +87,14 @@ public class PlayerScript : MonoBehaviour
         else StartDelay();
 
 
-        if (!Physics2D.OverlapCircle(targetPosition, 0.03f))
+        if (!Physics2D.OverlapCircle(targetPosition, 0.03f) && BottomCheck(targetPosition))
         {
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), mobileSpeed * Time.deltaTime);
             Heating();
         }
-       
+        
+
+
     }
 
     private void StartDelay()
@@ -122,7 +122,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void RestoreTemperature()
+    public void RestoringTemperature()
     {
         if(Temp < 105 && Temp > 0)
             Temp -= restoreRate * Time.deltaTime;
@@ -145,7 +145,21 @@ public class PlayerScript : MonoBehaviour
             counter.TempRemainsCounter(Temp);
         }
     }
-}
 
+    public bool BottomCheck(Vector3 targetPosition)
+    {
+        float Top = 9.4f;
+        float Bottom = -9f;
+        if(targetPosition.y < Top)
+        {
+            if (targetPosition.y > Bottom)
+            {
+                return true;
+            }
+            return false;
+        }
+      return false;
+    }
+}
 
 

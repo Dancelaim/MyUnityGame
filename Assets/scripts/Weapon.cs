@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class WeaponScript : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
 
     public Transform shotPrefab;
@@ -35,28 +35,31 @@ public class WeaponScript : MonoBehaviour
             
             if (isEnemy == true) {
 
-                var pos = transform.position + new Vector3(-1.2f, 0, 1);
+                var pos = transform.position + new Vector3(-2f, 0, 1);
 
                 shotTransform.position = pos;
             }
             else
             {
-                var pos = transform.position + new Vector3(2.1f, -1.1f, 1);
+                var pos = transform.position + new Vector3(2.1f, -0.82f, 1);
 
                 shotTransform.position = pos;
             }
 
-            ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript>();
+            Shot shot = shotTransform.gameObject.GetComponent<Shot>();
             if (shot != null)
             {
                 shot.isEnemyShot = isEnemy;
             }
 
             
-            MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
+            Move move = shotTransform.gameObject.GetComponent<Move>();
             if (move != null)
             {
-                move.direction = this.transform.right; 
+                move.direction = this.transform.right;
+               
+               
+
             }
         }
     }
@@ -69,3 +72,4 @@ public class WeaponScript : MonoBehaviour
         }
     }
 }
+
