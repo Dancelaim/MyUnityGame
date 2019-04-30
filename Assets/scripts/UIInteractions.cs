@@ -32,8 +32,8 @@ public class UIInteractions : MonoBehaviour
         else
         {
             GameObject Scripts = GameObject.Find("Scripts");
-            Spawn SpawnScript = Scripts.GetComponent<Spawn>();
-            SpawnScript.enabled = true;
+            Spawn Spawn = Scripts.GetComponent<Spawn>();
+            Spawn.enabled = true;
         }
     }
 

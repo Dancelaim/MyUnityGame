@@ -71,7 +71,7 @@ public class GameDifficulty : MonoBehaviour
 
     private void DifficultySetter(string Mode)
     {
-        var counter = FindObjectOfType<ResourceManager>();
+       // var counter = FindObjectOfType<ResourceManager>();
         
         var Spawner = FindObjectOfType<Spawn>();
         if (Spawner)
@@ -99,10 +99,10 @@ public class GameDifficulty : MonoBehaviour
                     Difficulty = "Normal";
                     break;
             }
-            if (counter)
-            {
-                counter.DiffDisplay(Difficulty);
-            }
+            //if (counter)
+            //{
+            //    counter.DiffDisplay(Difficulty);
+            //}
         }
     }
 }

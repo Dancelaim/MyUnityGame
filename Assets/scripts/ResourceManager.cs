@@ -8,10 +8,10 @@ public class ResourceManager : MonoBehaviour
 {
     private int Score;
     public Text ScoreText;
-    public Text DiffText;
+    //public Text DiffText;
     public Text Temperature;
     public Sprite[] ShipSchematics;
-    public Sprite[] FuelPanel;
+    //public Sprite[] FuelPanel;
     public Image HpBar;
     public Image TemperatureBar;
     private int CurrentHp;
@@ -27,13 +27,13 @@ public class ResourceManager : MonoBehaviour
         MissedKills++;
     }
 
-    public void DiffDisplay(string Diff)
-    {
-        if (DiffText)
-        {
-            DiffText.text = Diff;
-        }
-    }
+    //public void DifficultyDisplay(string Difficulty)
+    //{
+    //    if (DiffText)
+    //    {
+    //        DiffText.text = Difficulty;
+    //    }
+    //}
 
     public void ScoreCounter(int reward)
     {

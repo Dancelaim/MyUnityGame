@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RepairBotScript : MonoBehaviour
+public class RepairBot : MonoBehaviour
 {
     public GameObject MotherBoard;
     float LifeTime;
@@ -22,25 +22,25 @@ public class RepairBotScript : MonoBehaviour
 
     void Restore()
     {
-        HealthScript HpScript = MotherBoard.GetComponent<HealthScript>();
-        PlayerScript PlScript = MotherBoard.GetComponent<PlayerScript>();
-        if (HpScript.hp < 5)
+        Health Hp = MotherBoard.GetComponent<Health>();
+        Player Pl = MotherBoard.GetComponent<Player>();
+        if (Hp.hp < 5)
         {
-            int MissedHp = 5 - HpScript.hp;
+            int MissedHp = 5 - Hp.hp;
             if (LifeTime > 4)
             {
-                StartCoroutine(HpRestoration(MissedHp, HpScript));
+                StartCoroutine(HpRestoration(MissedHp, Hp));
             }
         }
-        PlScript.RestoreTemperature();
+        Pl.RestoreTemperature();
 
     }
 
-    IEnumerator HpRestoration(int MissedHp, HealthScript HpScript)
+    IEnumerator HpRestoration(int MissedHp, Health Hp)
     {
         for (int hp = 0; hp < MissedHp; hp++)
         {
-            HpScript.hp += 1;
+            Hp.hp += 1;
             yield return new WaitForSeconds(2f);
         }
     }

@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
     {
         Vector3 targetPosition = transform.position;
 
-        RestoringTemperature();
+        RestoreTemperature();
 
         if (Temp <= 100 && !delay)
         {
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         else StartDelay();
 
 
-        if (!Physics2D.OverlapCircle(targetPosition, 0.03f) && BottomCheck(targetPosition))
+        if (!Physics2D.OverlapCircle(targetPosition, 0.02f) && BottomCheck(targetPosition))
         {
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), mobileSpeed * Time.deltaTime);
             Heating();
@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void RestoringTemperature()
+    public void RestoreTemperature()
     {
         if(Temp < 105 && Temp > 0)
             Temp -= restoreRate * Time.deltaTime;
