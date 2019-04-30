@@ -14,6 +14,7 @@ public class UIInteractions : MonoBehaviour
     public float CoolDownTime;
     float delay;
     public float Delay;
+    public GameObject BotPrefab;
 
     void Awake()
     {
@@ -103,5 +104,20 @@ public class UIInteractions : MonoBehaviour
         GameObject Scripts = GameObject.Find("Scripts");
         SpawnScript SpawnScript = Scripts.GetComponent<SpawnScript>();
         SpawnScript.enabled = false;
+    }
+
+    public void LaunchRepairBots()
+    {
+        int botNumber = 8;
+        StartCoroutine(LaunchRepairBotsRoutine(botNumber));
+    }
+
+    IEnumerator LaunchRepairBotsRoutine(int botNumber)
+    {
+        for (int i = 0; i < botNumber; i++)
+        {
+            Instantiate(BotPrefab);
+            yield return new WaitForSeconds(0.02f);
+        }
     }
 }

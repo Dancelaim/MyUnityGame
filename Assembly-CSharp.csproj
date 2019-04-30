@@ -75,6 +75,7 @@
     <Compile Include="Assets\scripts\PlayerScript.cs" />
     <Compile Include="Assets\scripts\ProgressBarScript.cs" />
     <Compile Include="Assets\scripts\RendererExtensions.cs" />
+    <Compile Include="Assets\scripts\RepairBotScript.cs" />
     <Compile Include="Assets\scripts\ResourceManager.cs" />
     <Compile Include="Assets\scripts\ScrollingScript.cs" />
     <Compile Include="Assets\scripts\ShotScript.cs" />

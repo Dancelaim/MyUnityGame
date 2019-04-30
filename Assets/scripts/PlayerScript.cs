@@ -12,16 +12,16 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D rigidbodyComponent;
     public bool CanMove;
     Vector3 startPosition;
-    float Temp = 0;
-    public float burnRate = 5;
-    public float restoreRate = 5;
+    public float Temp;
+    public float burnRate;
+    public float restoreRate;
     bool delay = false;
 
 
     public void Awake()
     {
         startPosition = transform.position;
-
+        Temp = 0;
     }
 
     void Update()
@@ -52,8 +52,8 @@ public class PlayerScript : MonoBehaviour
         var dist = (transform.position - Camera.main.transform.position).z;
         var leftBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.05f, 0f, dist)).x;
         var rightBorder = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0f, dist)).x;
-        var topBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.05f, dist)).y;
-        var bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.95f, dist)).y;
+        var topBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.1f, dist)).y;
+        var bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.9f, dist)).y;
 
         transform.position = new Vector3(
           Mathf.Clamp(transform.position.x, leftBorder, rightBorder),
@@ -77,7 +77,7 @@ public class PlayerScript : MonoBehaviour
     {
         Vector3 targetPosition = transform.position;
 
-        RestoringTemperature();
+        RestoreTemperature();
 
         if (Temp <= 100 && !delay)
         {
@@ -122,7 +122,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void RestoringTemperature()
+    public void RestoreTemperature()
     {
         if(Temp < 105 && Temp > 0)
             Temp -= restoreRate * Time.deltaTime;
