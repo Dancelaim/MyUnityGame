@@ -348,7 +348,6 @@ GameObject:
   - component: {fileID: 254039401}
   - component: {fileID: 254039402}
   - component: {fileID: 254039404}
-  - component: {fileID: 254039407}
   - component: {fileID: 254039406}
   - component: {fileID: 254039405}
   m_Layer: 0
@@ -447,28 +446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e685134fee66a3f4e911cbc47740695e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &254039407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 254039400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74c5419ce58d2e4a917425cd596a487, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScoreText: {fileID: 1215155903}
-  Temperature: {fileID: 1965502032}
-  ShipSchematics:
-  - {fileID: 21300000, guid: 25b64d7a62fd50c4b8ba883669a17952, type: 3}
-  - {fileID: 21300000, guid: 6727ab27ed0c8cd4786904f4d3d709dd, type: 3}
-  - {fileID: 21300000, guid: e1f44f4371a4c6c4bb7e855af6c654a8, type: 3}
-  - {fileID: 21300000, guid: 38a097864f5546d44a46628f9346f6b2, type: 3}
-  - {fileID: 21300000, guid: 0c4402d97ab530e4e8efdd2fe312b36a, type: 3}
-  HpBar: {fileID: 59440091}
-  TemperatureBar: {fileID: 420718801}
 --- !u!1 &293444651
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,12 +563,6 @@ PrefabInstance:
     - {fileID: 114676488161816964, guid: 7d23f94a38064ae499ccc156be7135d2, type: 3}
     - {fileID: 114963469111333256, guid: 7d23f94a38064ae499ccc156be7135d2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7d23f94a38064ae499ccc156be7135d2, type: 3}
---- !u!4 &352764523 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4514241299792168, guid: 7d23f94a38064ae499ccc156be7135d2,
-    type: 3}
-  m_PrefabInstance: {fileID: 352764522}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &420718799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,69 +973,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701190300}
   m_CullTransparentMesh: 0
---- !u!1 &859977287 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1941429157366372, guid: 7d23f94a38064ae499ccc156be7135d2,
-    type: 3}
-  m_PrefabInstance: {fileID: 352764522}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &859977288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859977287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4fcaa06b25b66a478b12d7e8c757410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 5
-  isEnemy: 0
-  isWreckage: 0
-  isPlayer: 1
-  reward: 0
---- !u!114 &859977289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859977287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c507e15f4ccd2243ab1d079a94e3000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: {x: 50, y: 50}
-  mobileSpeed: 30
-  damagePlayer: 0
-  CanMove: 0
-  burnRate: 20
-  restoreRate: 5
---- !u!114 &859977290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859977287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74c5419ce58d2e4a917425cd596a487, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScoreText: {fileID: 1215155903}
-  Temperature: {fileID: 1965502032}
-  ShipSchematics:
-  - {fileID: 21300000, guid: 25b64d7a62fd50c4b8ba883669a17952, type: 3}
-  - {fileID: 21300000, guid: 6727ab27ed0c8cd4786904f4d3d709dd, type: 3}
-  - {fileID: 21300000, guid: e1f44f4371a4c6c4bb7e855af6c654a8, type: 3}
-  - {fileID: 21300000, guid: 38a097864f5546d44a46628f9346f6b2, type: 3}
-  - {fileID: 21300000, guid: 0c4402d97ab530e4e8efdd2fe312b36a, type: 3}
-  HpBar: {fileID: 59440091}
-  TemperatureBar: {fileID: 420718801}
 --- !u!1 &880376517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,7 +1119,7 @@ Transform:
   m_LocalPosition: {x: -14.671599, y: -41.03018, z: 2.9262233}
   m_LocalScale: {x: 5.2021747, y: 5.2021747, z: 1.040435}
   m_Children:
-  - {fileID: 352764523}
+  - {fileID: 1522245672}
   m_Father: {fileID: 293444652}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1769,6 +1677,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410338342}
   m_CullTransparentMesh: 0
+--- !u!4 &1522245672 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5981296112394308754, guid: 7d23f94a38064ae499ccc156be7135d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 352764522}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1589591910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1964,6 +1878,7 @@ GameObject:
   - component: {fileID: 1622190447}
   - component: {fileID: 1622190452}
   - component: {fileID: 1622190451}
+  - component: {fileID: 1622190453}
   m_Layer: 5
   m_Name: MainCanvas
   m_TagString: Untagged
@@ -2072,7 +1987,7 @@ MonoBehaviour:
   buttons:
   - {fileID: 1836113050}
   - {fileID: 1241485957}
-  SpaceShip: {fileID: 859977287}
+  SpaceShip: {fileID: 0}
   CoolDownTime: 15
   Delay: 10
   BotPrefab: {fileID: 0}
@@ -2084,26 +1999,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622190446}
   m_CullTransparentMesh: 0
---- !u!1 &1686069621 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1182384617453600, guid: 7d23f94a38064ae499ccc156be7135d2,
-    type: 3}
-  m_PrefabInstance: {fileID: 352764522}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1686069623
+--- !u!114 &1622190453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686069621}
+  m_GameObject: {fileID: 1622190446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98c3eb9fc4053b147b791ca0088a90b9, type: 3}
+  m_Script: {fileID: 11500000, guid: d74c5419ce58d2e4a917425cd596a487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotPrefab: {fileID: 4980710319201246, guid: d20021ec5e058944f95a326880c5fd7d, type: 3}
-  shootingRate: 0.15
+  ScoreText: {fileID: 1215155903}
+  Temperature: {fileID: 1965502032}
+  ShipSchematics:
+  - {fileID: 21300000, guid: 25b64d7a62fd50c4b8ba883669a17952, type: 3}
+  - {fileID: 21300000, guid: 6727ab27ed0c8cd4786904f4d3d709dd, type: 3}
+  - {fileID: 21300000, guid: e1f44f4371a4c6c4bb7e855af6c654a8, type: 3}
+  - {fileID: 21300000, guid: 38a097864f5546d44a46628f9346f6b2, type: 3}
+  - {fileID: 21300000, guid: 0c4402d97ab530e4e8efdd2fe312b36a, type: 3}
+  HpBar: {fileID: 59440091}
+  TemperatureBar: {fileID: 420718801}
 --- !u!1 &1836113048
 GameObject:
   m_ObjectHideFlags: 0
