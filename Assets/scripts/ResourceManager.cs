@@ -8,18 +8,20 @@ public class ResourceManager : MonoBehaviour
 {
     private int Score;
     public Text ScoreText;
-    //public Text DiffText;
-    public Text Temperature;
-    public Sprite[] ShipSchematics;
-    //public Sprite[] FuelPanel;
-    public Image HpBar;
     public Image TemperatureBar;
+    public Text Temperature;
+    public Image HpBar;
+    public Sprite[] ShipSchematics;
     private int CurrentHp;
     private int MissedKills;
 
     void Update()
     {
         StatCollectionSender();
+    }
+    private void Awake()
+    {
+       var list = this.GetComponentInChildren<Image>();
     }
 
     public void MissedCounter()

@@ -62,7 +62,7 @@ public class UIInteractions : MonoBehaviour
     public void RestartGame()
     {
        
-        SceneManager.LoadScene("Stage1");
+        SceneManager.LoadScene("Level_1");
     }
 
     public void LaunchBarrage()

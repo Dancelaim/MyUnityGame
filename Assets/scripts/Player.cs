@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         else StartDelay();
 
 
-        if (!Physics2D.OverlapCircle(targetPosition, 0.02f) && BottomCheck(targetPosition))
+        if (!Physics2D.OverlapCircle(targetPosition, 0.02f) && (9f < targetPosition.y || targetPosition.y < 9.4))
         {
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), mobileSpeed * Time.deltaTime);
             Heating();
@@ -144,21 +144,6 @@ public class Player : MonoBehaviour
         {
             counter.TempRemainsCounter(Temp);
         }
-    }
-
-    public bool BottomCheck(Vector3 targetPosition)
-    {
-        float Top = 9.4f;
-        float Bottom = -9f;
-        if(targetPosition.y < Top)
-        {
-            if (targetPosition.y > Bottom)
-            {
-                return true;
-            }
-            return false;
-        }
-      return false;
     }
 }
 
