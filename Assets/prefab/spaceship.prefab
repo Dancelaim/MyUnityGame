@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8005792434943912017}
   - component: {fileID: 5981296111895509169}
   - component: {fileID: 5981296111895509168}
-  - component: {fileID: 5981296111895509171}
   m_Layer: 0
   m_Name: spaceship
   m_TagString: Untagged
@@ -437,28 +436,6 @@ MonoBehaviour:
   CanMove: 0
   burnRate: 20
   restoreRate: 5
---- !u!114 &5981296111895509171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5981296111895509182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d74c5419ce58d2e4a917425cd596a487, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScoreText: {fileID: 0}
-  Temperature: {fileID: 0}
-  ShipSchematics:
-  - {fileID: 21300000, guid: 25b64d7a62fd50c4b8ba883669a17952, type: 3}
-  - {fileID: 21300000, guid: 6727ab27ed0c8cd4786904f4d3d709dd, type: 3}
-  - {fileID: 21300000, guid: e1f44f4371a4c6c4bb7e855af6c654a8, type: 3}
-  - {fileID: 21300000, guid: 38a097864f5546d44a46628f9346f6b2, type: 3}
-  - {fileID: 21300000, guid: 0c4402d97ab530e4e8efdd2fe312b36a, type: 3}
-  HpBar: {fileID: 0}
-  TemperatureBar: {fileID: 0}
 --- !u!1 &5981296112647647116
 GameObject:
   m_ObjectHideFlags: 0

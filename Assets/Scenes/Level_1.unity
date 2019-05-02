@@ -412,10 +412,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4292566746816486, guid: 8d7e807461188374780ca598fdf75f1b,
         type: 3}
-    m_RemovedComponents:
-    - {fileID: 114654162365754108, guid: 7d23f94a38064ae499ccc156be7135d2, type: 3}
-    - {fileID: 114676488161816964, guid: 7d23f94a38064ae499ccc156be7135d2, type: 3}
-    - {fileID: 114963469111333256, guid: 7d23f94a38064ae499ccc156be7135d2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d23f94a38064ae499ccc156be7135d2, type: 3}
 --- !u!1 &420718799
 GameObject:
@@ -1926,6 +1923,7 @@ GameObject:
   - component: {fileID: 1622190447}
   - component: {fileID: 1622190452}
   - component: {fileID: 1622190451}
+  - component: {fileID: 1622190453}
   m_Layer: 5
   m_Name: MainCanvas
   m_TagString: Untagged
@@ -2046,6 +2044,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622190446}
   m_CullTransparentMesh: 0
+--- !u!114 &1622190453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622190446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74c5419ce58d2e4a917425cd596a487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScoreText: {fileID: 1215155903}
+  TemperatureBar: {fileID: 420718801}
+  Temperature: {fileID: 1965502032}
+  HpBar: {fileID: 501600123}
+  ShipSchematics:
+  - {fileID: 21300000, guid: 25b64d7a62fd50c4b8ba883669a17952, type: 3}
+  - {fileID: 21300000, guid: 6727ab27ed0c8cd4786904f4d3d709dd, type: 3}
+  - {fileID: 21300000, guid: e1f44f4371a4c6c4bb7e855af6c654a8, type: 3}
+  - {fileID: 21300000, guid: 38a097864f5546d44a46628f9346f6b2, type: 3}
+  - {fileID: 21300000, guid: 0c4402d97ab530e4e8efdd2fe312b36a, type: 3}
 --- !u!1 &1836113048
 GameObject:
   m_ObjectHideFlags: 0
