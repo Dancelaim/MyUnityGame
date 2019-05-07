@@ -38,7 +38,6 @@ public class Player : MonoBehaviour
         bool shoot = false;
        
         if (Input.GetButton("Fire1")) shoot = true;
-
         var HpCounter = FindObjectOfType<ResourceManager>();
         Health playerHealth = GetComponent<Health>();
         HpCounter.HpBarSchema(playerHealth.hp);
@@ -87,7 +86,7 @@ public class Player : MonoBehaviour
         else StartDelay();
 
 
-        if (!Physics2D.OverlapCircle(targetPosition, 0.02f) && (9f < targetPosition.y || targetPosition.y < 9.4))
+        if (!Physics2D.OverlapCircle(targetPosition, 0.02f) && (9.2f > targetPosition.y && targetPosition.y > -9))
         {
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), mobileSpeed * Time.deltaTime);
             Heating();
