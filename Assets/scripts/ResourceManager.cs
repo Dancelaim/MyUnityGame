@@ -9,7 +9,6 @@ public class ResourceManager : MonoBehaviour
     private int Score;
     public Text ScoreText;
     public Image TemperatureBar;
-    public Text Temperature;
     public Image HpBar;
     public Sprite[] ShipSchematics;
     private int CurrentHp;
@@ -48,7 +47,7 @@ public class ResourceManager : MonoBehaviour
 
     public void TempRemainsCounter(float Temp)
     {
-        Temperature.text = string.Format("{0}", Mathf.Round(Temp));
+        TemperatureBar.fillAmount = Temp/100;
     }
 
     public void HpBarSchema(int CurrentHp)
@@ -74,20 +73,21 @@ public class ResourceManager : MonoBehaviour
         } 
     }
 
-    public void TemperatureBarWarning(bool HightTemp)
+    public void TemperatureBarWarning(bool HightTemp= false,bool WarningTemp = false)
     {
-        
         if (HightTemp)
         {
-                float c = Random.Range(0.8f, 1f);
-            TemperatureBar.color = new Color(1f, 0f, 0f, c);
-            Temperature.color = new Color(1f, 0f, 0f, c);
+                float c = Random.Range(0.3f, 0.6f);
+            TemperatureBar.color = new Color(174, 0f, 0f, c);
             
+        }
+        else if (WarningTemp)
+        {
+            TemperatureBar.color = new Color(1, 1, 0f, 0.7f);
         }
         else
         {
             TemperatureBar.color = new Color(0.03921569f, 0.509804f, 0.9411765f, 0.5490196f);
-            Temperature.color = new Color(0.03921569f, 0.509804f, 0.9411765f, 1f);
         }
     }
     public void StatCollectionSender()
