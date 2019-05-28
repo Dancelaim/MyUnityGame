@@ -71,7 +71,7 @@ public class UIInteractions : MonoBehaviour
         {
             BarrageCd = true;
             timeLeft += CoolDownTime;
-            delay += 10f;
+            delay += 8f;
             Enemies.Clear();
             Vector3 pos = SpaceShip.transform.position;
             foreach (var Col in Physics2D.OverlapCircleAll(pos, 500))

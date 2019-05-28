@@ -73,22 +73,20 @@ public class ResourceManager : MonoBehaviour
         } 
     }
 
-    public void TemperatureBarWarning(bool HightTemp= false,bool WarningTemp = false)
+    public void TemperatureBarWarning(TempStatus Temp)
     {
-        if (HightTemp)
-        {
-                float c = Random.Range(0.3f, 0.6f);
-            TemperatureBar.color = new Color(174, 0f, 0f, c);
-            
-        }
-        else if (WarningTemp)
-        {
-            TemperatureBar.color = new Color(1, 1, 0f, 0.7f);
-        }
-        else
-        {
-            TemperatureBar.color = new Color(0.03921569f, 0.509804f, 0.9411765f, 0.5490196f);
-        }
+        switch(Temp)
+            {
+            case TempStatus.High:
+                    TemperatureBar.color = new Color(174, 0f, 0f, Random.Range(0.3f, 0.6f));
+                break;
+            case TempStatus.Warning:
+                    TemperatureBar.color = new Color(1, 1, 0f, 0.7f);
+                break;
+            default:
+                    TemperatureBar.color = new Color(0.03921569f, 0.509804f, 0.9411765f, 0.5490196f);
+                break;
+            }
     }
     public void StatCollectionSender()
     {
@@ -97,5 +95,11 @@ public class ResourceManager : MonoBehaviour
         {
             Stats.StatCollection(CurrentHp, Score, MissedKills);
         }
+    }
+    public enum TempStatus
+    {
+        Normal = 0
+        ,Warning = 1
+        ,High = 2
     }
 }

@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
         }
         else delay = false;
 
-        counter.TemperatureBarWarning(HightTemp : delay);
+        counter.TemperatureBarWarning(ResourceManager.TempStatus.High);
     }
 
     private void EmergencyTemperatureRestore()
@@ -123,14 +123,16 @@ public class Player : MonoBehaviour
 
     public void RestoreTemperature()
     {
-        if(Temp < 105 && Temp > 0)
+        var counter = FindObjectOfType<ResourceManager>();
+
+        if (Temp < 105 && Temp > 0)
             Temp -= restoreRate * Time.deltaTime;
 
-        var counter = FindObjectOfType<ResourceManager>();
-        if (counter)
-        {
-            counter.TempRemainsCounter(Temp);
-        }
+        if (Temp < 35)
+            counter.TemperatureBarWarning(ResourceManager.TempStatus.Normal);
+
+        counter.TempRemainsCounter(Temp);
+
     }
 
     public void Heating()
@@ -139,7 +141,7 @@ public class Player : MonoBehaviour
 
         Temp += burnRate * Time.deltaTime;
 
-        if (Temp > 65) counter.TemperatureBarWarning(WarningTemp : true);
+        if (Temp > 65) counter.TemperatureBarWarning(ResourceManager.TempStatus.Warning);
 
         counter.TempRemainsCounter(Temp);
         
