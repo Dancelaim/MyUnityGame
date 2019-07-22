@@ -22,7 +22,6 @@ public class Spawn : MonoBehaviour
     {
         position = new Vector2(cam.orthographicSize * cam.aspect + Random.Range(3, 20), Random.Range(-9, 9));
         
-
         if (!Physics2D.OverlapCircle(position,3))
         {
             if (EnCount < maxEnemies)

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 60718248100632716}
   - component: {fileID: 657217040742070154}
   - component: {fileID: 2207413986404958296}
-  - component: {fileID: -883443787795380961}
   - component: {fileID: -3174013107779654812}
   m_Layer: 8
   m_Name: alien
@@ -614,22 +613,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: {x: 10, y: 10}
   direction: {x: -1, y: 0}
---- !u!114 &-883443787795380961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1101261495731668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc349a15c2a830b4a89f09bb3157dfcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: {x: 10, y: 10}
-  direction: {x: -1, y: 0}
-  isLinkedToCamera: 0
-  isLooping: 0
 --- !u!114 &-3174013107779654812
 MonoBehaviour:
   m_ObjectHideFlags: 0

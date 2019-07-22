@@ -7,47 +7,54 @@ public class TrainingController : MonoBehaviour
     public GameObject TurorialBox;
     public GameObject player;
     public float WordDelay = 0.08f;
-    public string Greetings;
-    public string TrainInvitation;
-    public string Maneuvering;
-    public string Temperature;
-    public string Shooting;
-    public string RocketBarrage;
-    public string Drone;
-    public string FinishTurorial;
     private string currentText = "";
-    private int TrainingProgress;
-    private bool done;
+    private bool done = true;
     private bool isTimerFinished = false;
     public float ReadTime = 3;
+    public int TrainingFinished = 0;
+    public string Text1;
+    public string Text2;
+    public string Text3;
+    public string Text4;
+    bool FirstStep = false;
+    bool SecondStep = false;
+    bool ThirdStep = false;
+    bool ForthStep = false;
 
-    void Start()
+    public void Start()
     {
-        DisablePlayer(false);
-        TrainingProgress = (int)TurorialProgress.Greetings;
-        StartCoroutine(DispayTutorialText(TrainingProgress, Alignment.MiddleCenter));
-        TurorialBox.GetComponentInChildren<Button>().gameObject.SetActive(true);
-        TurorialBox.GetComponentInChildren<Button>().gameObject.SetActive(false);
-
+        TurorialBox.gameObject.SetActive(false);
+        GameObject.Find("Scripts").GetComponent<Spawn>().enabled = false;
+        DisablePlayer(true);
+        TurorialBox.GetComponentInChildren<Button>(true).gameObject.SetActive(false);
     }
     private void Update()
     {
-        if (done && ReadTime > 0) ReadTime -= Time.deltaTime;
-        if (ReadTime <= 0) TurorialBox.GetComponentInChildren<Button>().gameObject.SetActive(true);
+        if (TrainingFinished < 20 & Input.touchCount > 0 || TrainingFinished < 20 & Input.GetMouseButton(0))
+        {
+            TrainingFinished = 21;
+            TurorialBox.gameObject.SetActive(true);
+            StartCoroutine(DispayTutorialText(Text1));
+            FirstStep = true;
+        }
+        if (FirstStep && TrainingFinished < 40 & player.gameObject.GetComponent<Player>().Temp > 65)
+        {
+            DisablePlayer(true);
+            TrainingFinished = 41;
+            TurorialBox.gameObject.SetActive(true);
+            StartCoroutine(DispayTutorialText(Text2));
+            SecondStep = true;
+            GameObject.Find("Scripts").GetComponent<Spawn>().maxEnemies = 1;
+            GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
+        }
+        if (SecondStep && TrainingFinished <60)
+        {
 
-        if (done && ReadTime <= 0 && TrainingProgress == 3)
-            {
-                StartCoroutine(CountDown(5f));
-                done = false;
-                TurorialBox.SetActive(false);
-                DisablePlayer(true);
-            }
-            else if (isTimerFinished)
-            {
-                done = true;
-                TurorialBox.SetActive(true);
-                DisablePlayer(false);
-            }
+        }
+
+        if (done && ReadTime > 0) ReadTime -= Time.deltaTime;
+        if (ReadTime <= 0) TurorialBox.GetComponentInChildren<Button>(true).gameObject.SetActive(true);
+
     }
     public IEnumerator CountDown(float Delay)
     {
@@ -64,58 +71,20 @@ public class TrainingController : MonoBehaviour
         if (done)
         {
             done = false;
-            TrainingProgress++;
-            TextController();
+            TurorialBox.gameObject.SetActive(false);
+            TurorialBox.GetComponentInChildren<Button>(true).gameObject.SetActive(false);
+            DisablePlayer(false);
         }
     }
     private void DisablePlayer(bool state)
     {
-        player.GetComponentInChildren<Player>().enabled = state;
+        player.GetComponentInChildren<Player>().enabled = !state;
     }
 
-    private void TextController()
-    { 
-       StartCoroutine(DispayTutorialText(TrainingProgress, Alignment.UpperLeft));
-    }
-    IEnumerator DispayTutorialText(int Progress, Alignment alignment)
+    IEnumerator DispayTutorialText(string TextToShow)
     {
-        string fullText = "";
-        switch ((int)Progress)
-        {
-            case 0:
-                fullText = this.Greetings;
-                break;
-            case 1:
-                fullText = this.TrainInvitation;
-                break;
-            case 2:
-                fullText = this.Maneuvering;
-                break;
-            case 3:
-                fullText = this.Temperature;
-                break;
-            case 4:
-                fullText = this.Shooting;
-                break;
-            case 5:
-                fullText = this.RocketBarrage;
-                break;
-            case 6:
-                fullText = this.Drone;
-                break;
-            case 7:
-                fullText = this.FinishTurorial;
-                break;
-        }
-        switch (alignment)
-        {
-            case Alignment.MiddleCenter:
-                TurorialBox.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleCenter;
-                break;
-            case Alignment.UpperLeft:
-                TurorialBox.GetComponentInChildren<Text>().alignment = TextAnchor.UpperLeft;
-                break;
-        }
+        ReadTime += 3;
+        string fullText= TextToShow;
         for (int i = 0; i < fullText.Length + 1; i++)
         {
             currentText = fullText.Substring(0, i);
@@ -123,22 +92,6 @@ public class TrainingController : MonoBehaviour
             yield return new WaitForSeconds(WordDelay);
         }
         done = true;
-        ReadTime = 3;
-    }
-    public enum Alignment
-    {
-         UpperLeft = 0
-        ,MiddleCenter = 1
-    }
-    public enum TurorialProgress
-    {
-        Greetings = 0
-        ,TrainInvitation = 1
-        ,Maneuvering = 2
-        ,Temperature = 3
-        ,Shooting = 4
-        ,RocketBarrage = 5
-        ,Drone = 6
-        ,FinishTurorial = 7
+        
     }
 }
