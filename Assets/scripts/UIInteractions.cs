@@ -35,16 +35,19 @@ public class UIInteractions : MonoBehaviour
             FullGameTime();
         }
         if (timeLeft > 0) timeLeft -= Time.deltaTime;
+        if (timeLeft>0) timeLeft -= Time.deltaTime;
+
         if (delay > 0)
         {
             delay -= Time.deltaTime;
         }
-        else
+        else if (delay < 0.000000)
         {
             if (!GameIsOver)
             {
                 GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
             }
+            GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
         }
     }
     public void HideButtons()

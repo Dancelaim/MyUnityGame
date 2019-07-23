@@ -73,8 +73,7 @@ public class GameDifficulty : MonoBehaviour
 
     private void DifficultySetter(string Mode)
     {
-        
-          var Spawner = FindObjectOfType<Spawn>();
+        var Spawner = FindObjectOfType<Spawn>();
         if (Spawner && Spawner.enabled)
         {
             switch (Mode)

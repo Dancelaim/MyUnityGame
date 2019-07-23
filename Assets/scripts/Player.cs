@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidbodyComponent;
     public bool CanMove;
     Vector3 startPosition;
-    float Temp = 0;
+    public float Temp = 0;
     public float burnRate = 5;
     public float restoreRate = 5;
     bool delay = false;
@@ -66,8 +66,7 @@ public class Player : MonoBehaviour
 
     void OnDestroy()
     {
-        FindObjectOfType<UIInteractions>().GameOver();
-        
+        FindObjectOfType<UIInteractions>().ShowButtons();
     }
 
     public void PlayerMove()
@@ -114,11 +113,7 @@ public class Player : MonoBehaviour
         if (Temp < 105 && Temp > 0)
             Temp -= 20 * Time.deltaTime;
 
-        var counter = FindObjectOfType<ResourceManager>();
-        if (counter)
-        {
-            counter.TempRemainsCounter(Temp);
-        }
+        FindObjectOfType<ResourceManager>().TempRemainsCounter(Temp);
     }
 
     public void RestoreTemperature()
