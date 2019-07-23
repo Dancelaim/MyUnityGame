@@ -6,10 +6,10 @@ using UnityEngine;
 public class Scrolling : MonoBehaviour
 {
     
-    public Vector2 speed = new Vector2(10, 10);
+    public Vector3 speed = new Vector3(10, 10, 0);
 
     
-    public Vector2 direction = new Vector2(-1, 0);
+    public Vector3 direction = new Vector3(-1, 0,0);
 
     
     public bool isLinkedToCamera = false;

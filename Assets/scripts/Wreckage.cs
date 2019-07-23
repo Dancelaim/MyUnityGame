@@ -63,8 +63,8 @@ public class Wreckage : MonoBehaviour
     {
         Shot shot = collision.gameObject.GetComponent<Shot>();
         if (shot != null)
-        {
-            moveScript.direction = new Vector2(1,Random.Range(-3.0f, 3.0f));
+        { //Range  не принимает 3тего аргумента
+            moveScript.direction = new Vector3(1,Random.Range(-3.0f, 3.0f));
         }
     }
 

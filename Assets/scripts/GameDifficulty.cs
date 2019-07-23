@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ public class GameDifficulty : MonoBehaviour
     private int hpValue;
     private int killsValue;
     private int missedKillsValue;
-    private string Difficulty;
+    public string Difficulty;
 
     private void Awake()
     {
@@ -18,6 +18,8 @@ public class GameDifficulty : MonoBehaviour
 
     private void Update()
     {
+        
+       
         DifficultyCheckTimer();
 
         if (DifficultyCheck)
@@ -71,9 +73,8 @@ public class GameDifficulty : MonoBehaviour
 
     private void DifficultySetter(string Mode)
     {
-       // var counter = FindObjectOfType<ResourceManager>();
         
-        var Spawner = FindObjectOfType<Spawn>();
+          var Spawner = FindObjectOfType<Spawn>();
         if (Spawner && Spawner.enabled)
         {
             switch (Mode)
