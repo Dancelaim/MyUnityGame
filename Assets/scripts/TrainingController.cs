@@ -11,45 +11,61 @@ public class TrainingController : MonoBehaviour
     private bool done = true;
     private bool isTimerFinished = false;
     public float ReadTime = 3;
-    public int TrainingFinished = 0;
     public string Text1;
     public string Text2;
     public string Text3;
     public string Text4;
-    bool FirstStep = false;
-    bool SecondStep = false;
-    bool ThirdStep = false;
-    bool ForthStep = false;
+    public List<bool> Progress = new List<bool>();
+    private Enemy Alien;
 
-    public void Start()
+    public void Awake()
     {
+        bool[] input = { false, false, false, false, false };
+        Progress.AddRange(input);
         TurorialBox.gameObject.SetActive(false);
         GameObject.Find("Scripts").GetComponent<Spawn>().enabled = false;
-        DisablePlayer(true);
+        GameObject.Find("Scripts").GetComponent<GameDifficulty>().enabled = false;
+        DisablePlayer(true,true);
         TurorialBox.GetComponentInChildren<Button>(true).gameObject.SetActive(false);
+        Alien = FindObjectOfType<Enemy>();
+
     }
     private void Update()
     {
-        if (TrainingFinished < 20 & Input.touchCount > 0 || TrainingFinished < 20 & Input.GetMouseButton(0))
+
+        if (Progress[0] == false && Input.touchCount > 0 || Progress[0] == false && Input.GetMouseButton(0))
         {
-            TrainingFinished = 21;
+            Progress[0] = true;
             TurorialBox.gameObject.SetActive(true);
+            DisableAll(true);
             StartCoroutine(DispayTutorialText(Text1));
-            FirstStep = true;
+            FindObjectOfType<Enemy>().GetComponentInChildren<Weapon>().enabled = false;
         }
-        if (FirstStep && TrainingFinished < 40 & player.gameObject.GetComponent<Player>().Temp > 65)
+        if (Progress[1] == false && player.gameObject.GetComponent<Player>().Temp > 65)
         {
-            DisablePlayer(true);
-            TrainingFinished = 41;
+            Progress[1] = true;
+            DisableAll(true);
             TurorialBox.gameObject.SetActive(true);
             StartCoroutine(DispayTutorialText(Text2));
-            SecondStep = true;
-            GameObject.Find("Scripts").GetComponent<Spawn>().maxEnemies = 1;
+        }
+        if (Progress[2] == false && Alien.transform.position.x <= Camera.main.ViewportToWorldPoint(new Vector3(0.85f, 0f, 0f)).x)
+        {
+            Progress[2] = true;
+            DisablePlayer(true,true);
+            Alien.GetComponentInChildren<Move>().speed.x = 0;
+            TurorialBox.gameObject.SetActive(true);
+            StartCoroutine(DispayTutorialText(Text3));
+        }
+
+
+        if (!Alien)
+        {
+            GameObject.Find("Scripts").GetComponent<GameDifficulty>().enabled = true;
             GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
         }
-        if (SecondStep && TrainingFinished <60)
+        else
         {
-
+            Alien.GetComponentInChildren<Weapon>().enabled = false;
         }
 
         if (done && ReadTime > 0) ReadTime -= Time.deltaTime;
@@ -73,12 +89,22 @@ public class TrainingController : MonoBehaviour
             done = false;
             TurorialBox.gameObject.SetActive(false);
             TurorialBox.GetComponentInChildren<Button>(true).gameObject.SetActive(false);
-            DisablePlayer(false);
+
+            if (Progress[2] == true)
+            {
+                DisablePlayer(false, false);
+            }
+            else
+            {
+                DisablePlayer(false);
+                if(Alien) Alien.GetComponentInChildren<Move>().speed.x = 10;
+            }
         }
     }
-    private void DisablePlayer(bool state)
+    private void DisablePlayer(bool state,bool WeaponState = true)
     {
         player.GetComponentInChildren<Player>().enabled = !state;
+        player.GetComponentInChildren<Weapon>().enabled = !WeaponState;
     }
 
     IEnumerator DispayTutorialText(string TextToShow)
@@ -93,5 +119,17 @@ public class TrainingController : MonoBehaviour
         }
         done = true;
         
+    }
+    public void DisableAll(bool state)
+    {
+        DisablePlayer(state);
+        GameObject.Find("Scripts").GetComponent<GameDifficulty>().enabled = !state;
+        GameObject.Find("Scripts").GetComponent<Spawn>().enabled = !state;
+        foreach (Enemy Alien in  FindObjectsOfType<Enemy>())
+        {
+            Alien.enabled = !state;
+            Alien.GetComponentInChildren<Move>().speed.x = 0;
+        }
+
     }
 }

@@ -71,8 +71,6 @@ public class GameDifficulty : MonoBehaviour
 
     private void DifficultySetter(string Mode)
     {
-       // var counter = FindObjectOfType<ResourceManager>();
-        
         var Spawner = FindObjectOfType<Spawn>();
         if (Spawner && Spawner.enabled)
         {

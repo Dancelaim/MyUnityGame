@@ -3,7 +3,7 @@
 
 public class Enemy : MonoBehaviour
 {
-    private bool hasSpawn;
+    public bool hasSpawn;
     private Move moveScript;
     private Weapon[] weapons;
     private PolygonCollider2D coliderComponent;
