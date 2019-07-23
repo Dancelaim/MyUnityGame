@@ -535,6 +535,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.65
       objectReference: {fileID: 0}
+    - target: {fileID: 5981296112647647118, guid: 7d23f94a38064ae499ccc156be7135d2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d23f94a38064ae499ccc156be7135d2, type: 3}
 --- !u!1 &373279961
@@ -2415,12 +2420,12 @@ MonoBehaviour:
   player: {fileID: 1522245671}
   WordDelay: 0.08
   ReadTime: 3
-  TrainingFinished: 0
   Text1: 'Welcome to Uj-13 Battle fighter. Click anywhere to move. '
   Text2: Look at Top right corner it's your maneuvering engine temperature if it's
     overheated you will stop moving
   Text3: Warning! Enemy spotted! Weapons Activated.
   Text4: 
+  Progress: 
 --- !u!1 &1682423031
 GameObject:
   m_ObjectHideFlags: 0
