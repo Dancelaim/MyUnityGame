@@ -248,7 +248,8 @@ paket-files/
 # FAKE - F# Make
 .fake/
 .csproj
-
+.csproj
+Assembly-CSharp.csproj
 # JetBrains Rider
 .idea/
 *.sln.iml

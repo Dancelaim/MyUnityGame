@@ -15,12 +15,14 @@ public class UIInteractions : MonoBehaviour
     public float Delay;
     public GameObject BotPrefab;
     public Transform Mark;
-    public bool GameIsOver;
     public Text second;
     public Text minutes;
     public float time;
     public float second1;
     public float minuta1;
+    public bool GameIsOver;
+   
+
     void Awake()
     { 
         Mark.gameObject.SetActive(false);
@@ -137,18 +139,18 @@ public class UIInteractions : MonoBehaviour
     }
     public void GameOver()
     {
-        GameObject.Find("Background").gameObject.GetComponent<Scrolling>().enabled = false;
-        GameIsOver = true;
-        ShowButtons();
-        StopSpawn();
-        ShowMark();
-        foreach (var enemy in Physics2D.OverlapCircleAll(new Vector3(0, 0, 0), 500))
-        {
-            if (enemy.tag == "Alien")
+            GameObject.Find("Background").gameObject.GetComponent<Scrolling>().enabled = false;
+            GameIsOver = true;
+            ShowButtons();
+            StopSpawn();
+            ShowMark();
+            foreach (var enemy in Physics2D.OverlapCircleAll(new Vector3(0, 0, 0), 500))
             {
-                Destroy(enemy);
-            }
-        }
+                if (enemy.tag == "Alien")
+                {
+                    Destroy(enemy);
+                }
+        }     
     }
     public void FullGameTime() 
     {

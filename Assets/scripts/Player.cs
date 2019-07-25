@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
     void OnDestroy()
     {
-        FindObjectOfType<UIInteractions>().ShowButtons();
+        FindObjectOfType<UIInteractions>().GameOver();
     }
 
     public void PlayerMove()

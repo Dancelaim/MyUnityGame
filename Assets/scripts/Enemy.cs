@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
     
     private void Spawn()
     {
-        hasSpawn = coliderComponent.enabled = true;
+        hasSpawn = true;
         foreach (Weapon weapon in weapons)
         {
             weapon.enabled = true;
