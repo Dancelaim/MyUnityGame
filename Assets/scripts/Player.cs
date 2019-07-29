@@ -35,29 +35,25 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        int layerMask = 1 << 8;
         bool shoot = false;
-       
-        if (Input.GetButton("Fire1")) shoot = true;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(1, 0, 0), Mathf.Infinity, layerMask);
+
+        if (hit.collider != null)
+        {
+            GetComponentInChildren<Weapon>().Attack(false);
+            SoundEffectsHelper.Instance.MakePlayerShotSound();
+        }
+
+
+        //if (Input.GetButton("Fire1")) 
+
+
         var HpCounter = FindObjectOfType<ResourceManager>();
         Health playerHealth = GetComponent<Health>();
         HpCounter.HpBarSchema(playerHealth.hp);
-
-        if (shoot)
-        {
-            weapons = GetComponentsInChildren<Weapon>();
-
-            foreach (Weapon weapon in weapons)
-            {
-                if (weapon != null && weapon.CanAttack)
-                {
-                    weapon.Attack(false);
-                    SoundEffectsHelper.Instance.MakePlayerShotSound();
-                }
-            }
-
-        }
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftBorder, rightBorder),Mathf.Clamp(transform.position.y, topBorder, bottomBorder));
-
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x, leftBorder, rightBorder), Mathf.Clamp(transform.position.y, topBorder, bottomBorder));
     }
     void FixedUpdate()
     {
