@@ -4,11 +4,11 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
-    public Vector2 speed = new Vector2(50, 50);
+    public Vector3 speed = new Vector3(50, 50, 0);
     public float mobileSpeed;
     private Weapon[] weapons;
     public bool damagePlayer;
-    private Vector2 movement;
+    private Vector3 movement;
     private Rigidbody2D rigidbodyComponent;
     public bool CanMove;
     Vector3 startPosition;
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
 
     void OnDestroy()
     {
-        FindObjectOfType<UIInteractions>().ShowButtons();
+        FindObjectOfType<UIInteractions>().GameOver();
     }
 
     public void PlayerMove()
@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
         if (Temp > 65) counter.TemperatureBarWarning(ResourceManager.TempStatus.Warning);
 
         counter.TempRemainsCounter(Temp);
-        
+
     }
 }
 
