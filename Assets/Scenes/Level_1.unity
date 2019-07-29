@@ -540,6 +540,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5981296112647647118, guid: 7d23f94a38064ae499ccc156be7135d2,
+        type: 3}
+      propertyPath: shootingRate
+      value: 0.05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d23f94a38064ae499ccc156be7135d2, type: 3}
 --- !u!1 &373279961

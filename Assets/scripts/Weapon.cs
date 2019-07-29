@@ -11,6 +11,8 @@ public class Weapon : MonoBehaviour
 
     private float shootCooldown;
 
+
+
     void Start()
     {
         shootCooldown = 0f;
@@ -22,6 +24,10 @@ public class Weapon : MonoBehaviour
         {
             shootCooldown -= Time.deltaTime;
         }
+
+        
+
+        
     }
     public void Attack(bool isEnemy)
     {
