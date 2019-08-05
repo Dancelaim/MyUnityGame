@@ -5,73 +5,44 @@ public class Weapon : MonoBehaviour
 {
 
     public Transform shotPrefab;
+    public float shootingRate;
+    public int Ammo;
+    private int FireArms;
+    private float ReloadTime;
+    public float Reload;
+    private bool AttackFinished;
+    bool AttackStarted;
 
-
-    public float shootingRate = 0.25f;
-
-    private float shootCooldown;
-
-
-
-    void Start()
+    private void Awake()
     {
-        shootCooldown = 0f;
+        FireArms = Ammo;
+        AttackFinished = true;
     }
-
     void Update()
     {
-        if (shootCooldown > 0)
-        {
-            shootCooldown -= Time.deltaTime;
-        }
+        if (ReloadTime > 0 && AttackFinished) ReloadTime -= Time.deltaTime;
+        if (ReloadTime <= 0) FireArms = Ammo;
     }
-    public void Attack(bool isEnemy)
+    public void Attack()
     {
-        if (CanAttack)
-        {
-            shootCooldown = shootingRate;
-
-            
-            var shotTransform = Instantiate(shotPrefab) as Transform;
-
-            
-            if (isEnemy == true) {
-
-                var pos = transform.position + new Vector3(-2f, 0, 1);
-
-                shotTransform.position = pos;
-            }
-            else
-            {
-                var pos = transform.position + new Vector3(2.1f, -0.82f, 1);
-
-                shotTransform.position = pos;
-            }
-
-            Shot shot = shotTransform.gameObject.GetComponent<Shot>();
-            if (shot != null)
-            {
-                shot.isEnemyShot = isEnemy;
-            }
-
-            
-            Move move = shotTransform.gameObject.GetComponent<Move>();
-            if (move != null)
-            {
-                move.direction = this.transform.right;
-               
-               
-
-            }
-        }
+        if (ReloadTime <= 0 && !AttackStarted) StartCoroutine(Fire());
     }
-    
-    public bool CanAttack
+    IEnumerator Fire()
     {
-        get
+        AttackStarted = true;
+        for (int i = 0; i < FireArms; i++)
         {
-            return shootCooldown <= 0f;
+                AttackFinished = false;
+                var shotTransform = Instantiate(shotPrefab);
+                shotTransform.position = transform.position + new Vector3(2.1f, -0.82f, 1);
+                Move move = shotTransform.gameObject.GetComponent<Move>();
+                if (move) move.direction = this.transform.right;
+                yield return new WaitForSeconds(shootingRate);
         }
+        ReloadTime = Reload;
+        FireArms = Ammo;
+        AttackFinished = true;
+        AttackStarted = false;
     }
 }
 

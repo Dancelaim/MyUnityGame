@@ -37,11 +37,11 @@ public class Player : MonoBehaviour
     {
         int layerMask = 1 << 8;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(-2f, 0, 1), new Vector3(1, 0, 0), Mathf.Infinity, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(2.1f, -0.82f, 1), new Vector3(1, 0, 0), Mathf.Infinity, layerMask);
 
         if (hit.collider != null && hit.collider.enabled && GetComponentInChildren<Weapon>().enabled)
         {
-            GetComponentInChildren<Weapon>().Attack(false);
+            GetComponentInChildren<Weapon>().Attack();
             SoundEffectsHelper.Instance.MakePlayerShotSound();
         }
 

@@ -5,14 +5,8 @@ public class EnemyWeapon : MonoBehaviour
 {
 
     public Transform shotPrefab;
-
-
     public float shootingRate = 0.25f;
-
     private float shootCooldown;
-
-
-
     void Start()
     {
         shootCooldown = 0f;

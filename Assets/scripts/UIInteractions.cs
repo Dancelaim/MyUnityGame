@@ -85,19 +85,6 @@ public class UIInteractions : MonoBehaviour
     {
         GameObject.Find("Scripts").GetComponent<Spawn>().enabled = false;
     }
-    public void LaunchRepairBots()
-    {
-        int botNumber = 8;
-        StartCoroutine(LaunchRepairBotsRoutine(botNumber));
-    }
-    IEnumerator LaunchRepairBotsRoutine(int botNumber)
-    {
-        for (int i = 0; i < botNumber; i++)
-        {
-            Instantiate(BotPrefab);
-            yield return new WaitForSeconds(0.02f);
-        }
-    }
     public void ShowMark()
     {
         Mark.gameObject.SetActive(true);
