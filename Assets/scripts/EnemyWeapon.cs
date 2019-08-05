@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class EnemyWeapon : MonoBehaviour
 {
 
     public Transform shotPrefab;
@@ -24,6 +24,10 @@ public class Weapon : MonoBehaviour
         {
             shootCooldown -= Time.deltaTime;
         }
+
+        
+
+        
     }
     public void Attack(bool isEnemy)
     {

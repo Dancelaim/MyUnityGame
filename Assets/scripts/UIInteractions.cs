@@ -8,7 +8,7 @@ public class UIInteractions : MonoBehaviour
     public Button[] buttons;
     public GameObject SpaceShip;
     private List<Collider2D> Enemies;
-    bool BarrageCd;
+    bool BarrageOnCd;
     float timeLeft;
     public float CoolDownTime;
     float delay;
@@ -24,46 +24,21 @@ public class UIInteractions : MonoBehaviour
    
 
     void Awake()
-    { 
+    {
         Mark.gameObject.SetActive(false);
-        HideButtons();
         Enemies = new List<Collider2D>();
-        BarrageCd = false;
+        BarrageOnCd = false;
     }
     private void Update()
     {
-        if (GameIsOver == false)
-        {
-            FullGameTime();
-        }
-        if (timeLeft > 0) timeLeft -= Time.deltaTime;
-        if (timeLeft>0) timeLeft -= Time.deltaTime;
+        if (!GameIsOver) FullGameTime();
 
-        if (delay > 0)
+        if (timeLeft > 0) timeLeft -= Time.deltaTime;
+
+        if (delay > 0) delay -= Time.deltaTime;
+        else if (delay < 0.000000 && !GameIsOver)
         {
-            delay -= Time.deltaTime;
-        }
-        else if (delay < 0.000000)
-        {
-            if (!GameIsOver)
-            {
-                GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
-            }
             GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
-        }
-    }
-    public void HideButtons()
-    {
-        foreach (var b in buttons)
-        {
-            b.gameObject.SetActive(false);
-        }
-    }
-    public void ShowButtons()
-    {
-        foreach (var b in buttons)
-        {
-            b.gameObject.SetActive(true);
         }
     }
     public void ExitToMenu()
@@ -76,9 +51,9 @@ public class UIInteractions : MonoBehaviour
     }
     public void LaunchBarrage()
     {
-        if (!BarrageCd)
+        if (!BarrageOnCd)
         {
-            BarrageCd = true;
+            BarrageOnCd = true;
             timeLeft += CoolDownTime;
             delay += 8f;
             Enemies.Clear();
@@ -95,7 +70,7 @@ public class UIInteractions : MonoBehaviour
         }
         if (timeLeft < 1)
         {
-            BarrageCd = false;
+            BarrageOnCd = false;
         }
     }
     IEnumerator LaunchBarrageRoutine(Vector2 pos, Missile MissileLaunch)
@@ -108,9 +83,7 @@ public class UIInteractions : MonoBehaviour
     }
     public void StopSpawn()
     {
-        GameObject Scripts = GameObject.Find("Scripts");
-        Spawn SpawnScript = Scripts.GetComponent<Spawn>();
-        SpawnScript.enabled = false;
+        GameObject.Find("Scripts").GetComponent<Spawn>().enabled = false;
     }
     public void LaunchRepairBots()
     {
@@ -139,9 +112,8 @@ public class UIInteractions : MonoBehaviour
     }
     public void GameOver()
     {
-            GameObject.Find("Background").gameObject.GetComponent<Scrolling>().enabled = false;
             GameIsOver = true;
-            ShowButtons();
+            //ShowButtons();
             StopSpawn();
             ShowMark();
             foreach (var enemy in Physics2D.OverlapCircleAll(new Vector3(0, 0, 0), 500))
@@ -152,7 +124,7 @@ public class UIInteractions : MonoBehaviour
                 }
         }     
     }
-    public void FullGameTime() 
+    public void FullGameTime()
     {
         time -= Time.deltaTime;
         if (time <= 0)
@@ -167,5 +139,5 @@ public class UIInteractions : MonoBehaviour
         }
         second.text = "" + second1;
         minutes.text = "" + minuta1 + "  :";
-    }  
+    }
 }

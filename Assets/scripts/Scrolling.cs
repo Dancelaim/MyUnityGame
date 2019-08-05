@@ -36,7 +36,7 @@ public class Scrolling : MonoBehaviour
 
     void Update()
     {
-        if (SpaceShip.transform.position.x >= Camera.main.ViewportToWorldPoint(new Vector3(0.15f, 0f, 0f)).x)
+        if (SpaceShip && SpaceShip.transform.position.x >= Camera.main.ViewportToWorldPoint(new Vector3(0.07f, 0f, 0f)).x)
         {
             Scroll(false);
         }

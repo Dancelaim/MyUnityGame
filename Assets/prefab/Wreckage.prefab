@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 60970506209649048}
   - component: {fileID: 4846249647965505730}
   - component: {fileID: 1252143093404192480}
-  - component: {fileID: 754446654232243768}
   - component: {fileID: 1010864898294724778}
   m_Layer: 8
   m_Name: Wreckage
@@ -182,22 +181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f816733db108074f979c933ca42d2bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &754446654232243768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1866534839946968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc349a15c2a830b4a89f09bb3157dfcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: {x: 10, y: 10}
-  direction: {x: -1, y: 0}
-  isLinkedToCamera: 0
-  isLooping: 0
 --- !u!114 &1010864898294724778
 MonoBehaviour:
   m_ObjectHideFlags: 0

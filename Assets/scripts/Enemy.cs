@@ -5,14 +5,14 @@ public class Enemy : MonoBehaviour
 {
     public bool hasSpawn;
     private Move moveScript;
-    private Weapon[] weapons;
+    private EnemyWeapon[] weapons;
     private PolygonCollider2D coliderComponent;
     private SpriteRenderer rendererComponent;
    
 
     void Awake()
     {
-        weapons = GetComponentsInChildren<Weapon>();
+        weapons = GetComponentsInChildren<EnemyWeapon>();
         coliderComponent = GetComponent<PolygonCollider2D>();
         rendererComponent = GetComponent<SpriteRenderer>();
     }
@@ -21,9 +21,9 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         hasSpawn = false;
-        foreach (Weapon weapon in weapons)
+        foreach (EnemyWeapon weapon in weapons)
         {
-            weapon.enabled = false;
+            weapon.enabled = coliderComponent.enabled = false;
         }
     }
 
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
         else
         {
            
-            foreach (Weapon weapon in weapons)
+            foreach (EnemyWeapon weapon in weapons)
             {
                 if (weapon != null && weapon.enabled && weapon.CanAttack)
                 {
@@ -68,9 +68,9 @@ public class Enemy : MonoBehaviour
     private void Spawn()
     {
         hasSpawn = true;
-        foreach (Weapon weapon in weapons)
+        foreach (EnemyWeapon weapon in weapons)
         {
-            weapon.enabled = true;
+            weapon.enabled = coliderComponent.enabled  = true;
         }
     }
 }

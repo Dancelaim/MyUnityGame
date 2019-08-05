@@ -36,11 +36,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         int layerMask = 1 << 8;
-        bool shoot = false;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(1, 0, 0), Mathf.Infinity, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(-2f, 0, 1), new Vector3(1, 0, 0), Mathf.Infinity, layerMask);
 
-        if (hit.collider != null)
+        if (hit.collider != null && hit.collider.enabled && GetComponentInChildren<Weapon>().enabled)
         {
             GetComponentInChildren<Weapon>().Attack(false);
             SoundEffectsHelper.Instance.MakePlayerShotSound();
@@ -62,7 +61,7 @@ public class Player : MonoBehaviour
 
     void OnDestroy()
     {
-        FindObjectOfType<UIInteractions>().GameOver();
+        GameObject.Find("MainCanvas").GetComponent<UIInteractions>().GameOver();
     }
 
     public void PlayerMove()
@@ -81,10 +80,10 @@ public class Player : MonoBehaviour
         else StartDelay();
 
 
-        if (!Physics2D.OverlapCircle(targetPosition, 0.02f) && (9.2f > targetPosition.y && targetPosition.y > -9))
+        if (9.2f > targetPosition.y && targetPosition.y > -9)
         {
             this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, targetPosition.y, 0), mobileSpeed * Time.deltaTime);
-            Heating();
+            if(!Physics2D.OverlapCircle(targetPosition, 0.0001f))Heating();
         }
         
 
