@@ -6,31 +6,28 @@ using UnityEngine;
 
 public class Scrolling : MonoBehaviour
 {
-    public Vector2 speed = new Vector2(10, 10);
-    public Vector2 direction = new Vector2(-1, 0);
+    public float speed = 10;
     public bool isLinkedToCamera = false;
     public bool isLooping = false;
-    private List<SpriteRenderer> backgroundPart;
     public GameObject SpaceShip;
     Vector3 Movespeed = new Vector3(0, 0, 0);
     bool RoutineStarted = false;
+    private List<GameObject> backgroundPart;
     void Start()
     {
        if (isLooping)
-        {           
-            backgroundPart = new List<SpriteRenderer>();
+        {
+            backgroundPart = new List<GameObject>();
             for (int i = 0; i < transform.childCount; i++)
             {
                 Transform child = transform.GetChild(i);
-                SpriteRenderer r = child.GetComponent<SpriteRenderer>();                
+                GameObject r = child.GetComponent<GameObject>();
                 if (r != null)
                 {
                     backgroundPart.Add(r);
                 }
-            }            
-            backgroundPart = backgroundPart.OrderBy(
-              t => t.transform.position.x
-            ).ToList();
+            }
+            backgroundPart = backgroundPart.OrderBy(t => t.transform.position.x).ToList();
         }
     }
 
@@ -53,15 +50,15 @@ public class Scrolling : MonoBehaviour
             RoutineStarted = true;
             StartCoroutine(SmoothScrollRoutine(-1));
         }
-        else if (!RoutineStarted && Movespeed.x < speed.x)
+        else if (!RoutineStarted && Movespeed.x < speed)
         {
             RoutineStarted = true;
             StartCoroutine(SmoothScrollRoutine(1));
         }
 
            Vector3 movement = new Vector3(
-              Movespeed.x * direction.x,
-              Movespeed.y * direction.y,
+              Movespeed.x,
+              Movespeed.y,
               0);
 
         movement *= Time.deltaTime;
@@ -76,14 +73,14 @@ public class Scrolling : MonoBehaviour
 
         if (isLooping)
         {
-            SpriteRenderer firstChild = backgroundPart.FirstOrDefault();
+            GameObject firstChild = backgroundPart.FirstOrDefault();
             if (firstChild != null)
             {
                 if (firstChild.transform.position.x < Camera.main.transform.position.x)
                 {
                     if (firstChild.IsVisibleFrom(Camera.main) == false)
                     {
-                        SpriteRenderer lastChild = backgroundPart.LastOrDefault();
+                        GameObject lastChild = backgroundPart.LastOrDefault();
                         Vector3 lastPosition = lastChild.transform.position;
                         Vector3 lastSize = (lastChild.bounds.max - lastChild.bounds.min);
                         firstChild.transform.position = new Vector3(lastPosition.x + lastSize.x, firstChild.transform.position.y, firstChild.transform.position.z);
@@ -99,7 +96,7 @@ public class Scrolling : MonoBehaviour
     {
         if (inertion > 0)
         {
-            while (speed.x > Movespeed.x) 
+            while (speed > Movespeed.x) 
             {
                 Movespeed.x += 0.5f;
                 yield return new WaitForSeconds(0.05f);
