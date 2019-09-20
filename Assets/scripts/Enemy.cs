@@ -51,14 +51,6 @@ public class Enemy : MonoBehaviour
           
             if (!rendererComponent.IsVisibleFrom(Camera.main))
             {
-                if (gameObject.tag == "Alien")
-                {
-                    var counter = FindObjectOfType<ResourceManager>();
-                    if (counter)
-                    {
-                        counter.MissedCounter();
-                    }
-                }
                 Destroy(gameObject);
             }
         }

@@ -14,18 +14,21 @@ public class UIInteractions : MonoBehaviour
     float delay;
     public float Delay;
     public GameObject BotPrefab;
-    public Transform Mark;
+    public Transform MarkObject;
+    public static Transform Mark;
     public Text second;
     public Text minutes;
     public float time;
     public float second1;
     public float minuta1;
-    public bool GameIsOver;
+    public static bool GameIsOver;
+    public Canvas Description;
+    public Button LaunchButton;
    
 
     void Awake()
     {
-        Mark.gameObject.SetActive(false);
+        Mark = MarkObject;
         Enemies = new List<Collider2D>();
         BarrageOnCd = false;
     }
@@ -33,12 +36,27 @@ public class UIInteractions : MonoBehaviour
     {
         if (!GameIsOver) FullGameTime();
 
+
         if (timeLeft > 0) timeLeft -= Time.deltaTime;
+
+        if (timeLeft < 0)
+        {
+            BarrageOnCd = false;
+            LaunchButton.interactable = true;
+            LaunchButton.GetComponentInChildren<Text>().color = LaunchButton.colors.normalColor;
+        }
 
         if (delay > 0) delay -= Time.deltaTime;
         else if (delay < 0.000000 && !GameIsOver)
         {
             GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
+        }
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButton(0))
+        {
+            Description.enabled = false;
+            GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
+            GameObject.Find("Scripts").GetComponent<GameDifficulty>().enabled = true;
         }
     }
     public void ExitToMenu()
@@ -53,6 +71,8 @@ public class UIInteractions : MonoBehaviour
     {
         if (!BarrageOnCd)
         {
+            LaunchButton.GetComponentInChildren<Text>().color = LaunchButton.colors.disabledColor;
+            LaunchButton.interactable = false;
             BarrageOnCd = true;
             timeLeft += CoolDownTime;
             delay += 8f;
@@ -62,30 +82,23 @@ public class UIInteractions : MonoBehaviour
             {
                 if (Col.tag == "Alien") Enemies.Add(Col);
             }
-            GameObject Scripts = GameObject.Find("Scripts");
-            Missile rocketLaunch = Scripts.GetComponent<Missile>();
-
             StopSpawn();
-            StartCoroutine(LaunchBarrageRoutine(pos, rocketLaunch));
-        }
-        if (timeLeft < 1)
-        {
-            BarrageOnCd = false;
+            StartCoroutine(LaunchBarrageRoutine(pos));
         }
     }
-    IEnumerator LaunchBarrageRoutine(Vector2 pos, Missile MissileLaunch)
+    IEnumerator LaunchBarrageRoutine(Vector2 pos)
     {
         foreach (Collider2D Enemy in Enemies)
         {
-            MissileLaunch.AutoAim(pos, Enemy);
+            GameObject.Find("Scripts").GetComponent<Missile>().AutoAim(pos, Enemy);
             yield return new WaitForSeconds(0.08f);
         }
     }
-    public void StopSpawn()
+    public static void StopSpawn()
     {
         GameObject.Find("Scripts").GetComponent<Spawn>().enabled = false;
     }
-    public void ShowMark()
+    public  static void ShowMark()
     {
         Mark.gameObject.SetActive(true);
     }
@@ -97,7 +110,7 @@ public class UIInteractions : MonoBehaviour
     {
         GameObject.Find("spaceship").gameObject.GetComponent<Player>().enabled = false;
     }
-    public void GameOver()
+    public static void GameOver()
     {
             GameIsOver = true;
             //ShowButtons();

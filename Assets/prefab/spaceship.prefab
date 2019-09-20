@@ -28,9 +28,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5981296111895509182}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -78.5, y: 1.84, z: 0}
-  m_LocalScale: {x: 0.1804752, y: 0.17967841, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 5171947558928287765}
   m_Father: {fileID: 0}
@@ -61,6 +61,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -430,12 +431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c507e15f4ccd2243ab1d079a94e3000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 50, y: 50}
-  mobileSpeed: 30
+  speed: {x: 5, y: 5, z: 0}
+  mobileSpeed: 75
   damagePlayer: 0
   CanMove: 0
-  burnRate: 20
-  restoreRate: 5
 --- !u!1 &5981296112647647116
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,4 +479,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotPrefab: {fileID: 4980710319201246, guid: d20021ec5e058944f95a326880c5fd7d, type: 3}
-  shootingRate: 0.15
+  shootingRate: 0.05
+  Ammo: 3
+  Reload: 0.4

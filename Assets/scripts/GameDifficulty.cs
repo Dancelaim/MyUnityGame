@@ -8,7 +8,6 @@ public class GameDifficulty : MonoBehaviour
     float timeLeft = 10f;
     private int hpValue;
     private int killsValue;
-    private int missedKillsValue;
     public string Difficulty;
 
     private void Awake()
@@ -24,25 +23,25 @@ public class GameDifficulty : MonoBehaviour
 
         if (DifficultyCheck)
         {
-            if (hpValue >= 5 && killsValue > 3 && missedKillsValue < 5 && Difficulty == "Starter")
+            if (hpValue >= 5 && killsValue > 3 && Difficulty == "Starter")
             {
                 DifficultySetter("Normal");
                 timeLeft += 10f;
                 DifficultyCheck = false;
             }
-            else if (hpValue >= 5 && killsValue > 10 && missedKillsValue < 10 && Difficulty == "Normal")
+            else if (hpValue >= 5 && killsValue > 10 && Difficulty == "Normal")
             {
                 DifficultySetter("Advanced");
                 timeLeft += 10f;
                 DifficultyCheck = false;
             }
-            else if (hpValue >= 5 && killsValue > 20 && missedKillsValue < 20 && Difficulty == "Advanced")
+            else if (hpValue >= 5 && killsValue > 20 && Difficulty == "Advanced")
             {
                 DifficultySetter("Hard");
                 timeLeft += 10f;
                 DifficultyCheck = false;
             }
-            else if (hpValue >= 5 && killsValue > 40 && missedKillsValue < 30 && Difficulty == "Hard")
+            else if (hpValue >= 5 && killsValue > 40 && Difficulty == "Hard")
             {
                 DifficultySetter("ACE");
                 timeLeft += 10f;
@@ -64,11 +63,10 @@ public class GameDifficulty : MonoBehaviour
         }
     }
 
-    public void StatCollection(int hpValue, int killsValue, int missedKillsValue)
+    public void StatCollection(int hpValue, int killsValue)
     {
         this.hpValue = hpValue;
         this.killsValue = killsValue /= 100;
-        this.missedKillsValue = missedKillsValue;
     }
 
     private void DifficultySetter(string Mode)

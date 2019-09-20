@@ -18,8 +18,7 @@ public class StartAssignment : MonoBehaviour
     }
     public void GameTimeController()
     {
-        UIInteractions interactionScript = GetComponent<UIInteractions>();
-        if (interactionScript.GameIsOver)
+        if (UIInteractions.GameIsOver)
         { 
             DifficultySetter();    
             AssignStar(DifficultySet);

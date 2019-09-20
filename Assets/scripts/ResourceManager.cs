@@ -8,34 +8,23 @@ public class ResourceManager : MonoBehaviour
 {
     private int Score;
     public Text ScoreText;
-    public Image TemperatureBar;
+    public Image FuelBar;
     public Image HpBar;
     public Sprite[] ShipSchematics;
     private int CurrentHp;
-    private int MissedKills;
+    public static float Fuel = 100;
+    public static float burnRate = 15;
+    public static bool delay = false;
 
     void Update()
     {
         StatCollectionSender();
+        FuelController();
     }
     private void Awake()
     {
        var list = this.GetComponentInChildren<Image>();
     }
-
-    public void MissedCounter()
-    {
-        MissedKills++;
-    }
-
-    //public void DifficultyDisplay(string Difficulty)
-    //{
-    //    if (DiffText)
-    //    {
-    //        DiffText.text = Difficulty;
-    //    }
-    //}
-
     public void ScoreCounter(int reward)
     {
         if (ScoreText)
@@ -44,12 +33,6 @@ public class ResourceManager : MonoBehaviour
             ScoreText.text = Score.ToString();
         }
     }
-
-    public void TempRemainsCounter(float Temp)
-    {
-        TemperatureBar.fillAmount = Temp/100;
-    }
-
     public void HpBarSchema(int CurrentHp)
     {
         this.CurrentHp = CurrentHp;
@@ -72,34 +55,70 @@ public class ResourceManager : MonoBehaviour
                 break;
         } 
     }
-
-    public void TemperatureBarWarning(TempStatus Temp)
-    {
-        switch(Temp)
-            {
-            case TempStatus.High:
-                    TemperatureBar.color = new Color(174, 0f, 0f, Random.Range(0.3f, 0.6f));
-                break;
-            case TempStatus.Warning:
-                    TemperatureBar.color = new Color(1, 1, 0f, 0.7f);
-                break;
-            default:
-                    TemperatureBar.color = new Color(0.03921569f, 0.509804f, 0.9411765f, 0.5490196f);
-                break;
-            }
-    }
     public void StatCollectionSender()
     {
         var Stats = FindObjectOfType<GameDifficulty>();
         if (Stats)
         {
-            Stats.StatCollection(CurrentHp, Score, MissedKills);
+            Stats.StatCollection(CurrentHp, Score);
         }
     }
-    public enum TempStatus
+
+    #region Fuel Controller
+    public void FuelRemainsCounter(float Fuel)
+    {
+        FuelBar.fillAmount = Fuel / 100;
+    }
+    public void FuelBarWarning(FuelStatus Fuel)
+    {
+        switch(Fuel)
+            {
+            case FuelStatus.High:
+                FuelBar.color = new Color(174, 0f, 0f, Random.Range(0.3f, 0.6f));
+                break;
+            case FuelStatus.Warning:
+                FuelBar.color = new Color(1, 1, 0f, 0.7f);
+                break;
+            default:
+                FuelBar.color = new Color(1f, 0.5615012f, 0f, 0.6156863f);
+                break;
+            }
+    }
+
+    public void FuelController()
+    {
+        if (Fuel >65)
+            FuelBarWarning(ResourceManager.FuelStatus.Normal);
+        else if(Fuel < 65 && Fuel > 35)
+            FuelBarWarning(ResourceManager.FuelStatus.Warning);
+        else if (Fuel < 35)
+            FuelBarWarning(ResourceManager.FuelStatus.High);
+
+        FuelRemainsCounter(Fuel);
+    }
+    public static void Thrust()
+    {
+        Fuel -= burnRate * Time.deltaTime;
+    }
+    private static void EmergencyFuelRestore()
+    {
+        Fuel += 25f * Time.deltaTime;
+    }
+
+    public static void StartDelay()
+    {
+        if (Fuel < 100)
+        {
+            delay = true;
+            EmergencyFuelRestore();
+        }
+        else delay = false;
+    }
+    public enum FuelStatus
     {
         Normal = 0
         ,Warning = 1
         ,High = 2
     }
+    #endregion
 }
