@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
-    public Vector3 speed = new Vector3(50, 50, 0);
     public float mobileSpeed;
     private Weapon[] weapons;
     public bool damagePlayer;
@@ -12,13 +11,8 @@ public class Player : MonoBehaviour
     private Rigidbody rigidbodyComponent;
     public bool CanMove;
     Vector3 startPosition;
-    float dist;
-    float leftBorder;
-    float rightBorder;
-    float topBorder;
-    float bottomBorder;
-
-
+    public float rotatingSpeed = 0.1F;
+    bool routineFinished;
     public void Awake()
     {
         startPosition = transform.position;
@@ -37,19 +31,11 @@ public class Player : MonoBehaviour
             GetComponentInChildren<Weapon>().Attack();
             SoundEffectsHelper.Instance.MakePlayerShotSound();
         }
-
-
-        //if (Input.GetButton("Fire1")) 
-
-
-        var HpCounter = FindObjectOfType<ResourceManager>();
-        Health playerHealth = GetComponent<Health>();
-        HpCounter.HpBarSchema(playerHealth.hp);
-        //transform.position = new Vector2(Mathf.Clamp(transform.position.x, leftBorder, rightBorder), Mathf.Clamp(transform.position.y, topBorder, bottomBorder));
+        FindObjectOfType<ResourceManager>().HpBarSchema(GetComponent<Health>().hp);
     }
     void FixedUpdate()
     {
-        PlayerMove();
+       PlayerMove();
     }
 
     void OnDestroy()
@@ -65,17 +51,26 @@ public class Player : MonoBehaviour
         {
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButton(0))
             {
-                targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) != null ? Camera.main.ScreenToWorldPoint(Input.mousePosition) : Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetPosition.x, 0, targetPosition.z), mobileSpeed * Time.deltaTime);
+                Vector3 screenPosition = Input.mousePosition;
+                screenPosition.z = 250;
+                targetPosition = Input.mousePosition != null ? Camera.main.ScreenToWorldPoint(screenPosition) : Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+                Vector3 direction = targetPosition - transform.position;
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                targetRotation.z = targetRotation.x = 0;
+
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation,rotatingSpeed * Time.deltaTime );
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, mobileSpeed * Time.deltaTime);
+               
             }
         }
         else ResourceManager.StartDelay();
 
-        
-        if(Physics.OverlapSphere(targetPosition, 1f) == null) ResourceManager.Thrust();
-        
-        
+       
+            
 
+
+        if (Physics.OverlapSphere(targetPosition, 1f) == null) ResourceManager.Thrust();
 
     }
 }
