@@ -1352,8 +1352,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 121.634766, y: 40.29492}
-  m_SizeDelta: {x: 243.27, y: 80.589966}
+  m_AnchoredPosition: {x: 121.76999, y: 40.339996}
+  m_SizeDelta: {x: 243.54, y: 80.68}
   m_Pivot: {x: 0.4999997, y: 0.49999985}
 --- !u!1 &1215155901
 GameObject:
@@ -1640,7 +1640,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 216.71, y: 105.3}
+  m_SizeDelta: {x: 172.19, y: 83.67}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1267049169
 MonoBehaviour:
@@ -1799,7 +1799,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 33
+    m_MaxSize: 22
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1969,7 +1969,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589591910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000089314}
   m_LocalScale: {x: 0.57901, y: 0.57901, z: 0.5315196}
   m_Children:
   - {fileID: 1410338343}
@@ -1979,7 +1979,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 409.4, y: 185.2}
+  m_SizeDelta: {x: 301.39, y: 136.34}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1589591912
 MonoBehaviour:
@@ -3363,6 +3363,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591605854834048455, guid: ffdb845e860ab4d489551dee6c0e2e80,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 50.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591605854834048455, guid: ffdb845e860ab4d489551dee6c0e2e80,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591605854834048455, guid: ffdb845e860ab4d489551dee6c0e2e80,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}

@@ -74,13 +74,13 @@ public class ResourceManager : MonoBehaviour
         switch(Fuel)
             {
             case FuelStatus.High:
-                FuelBar.color = new Color(174, 0f, 0f, Random.Range(0.3f, 0.6f));
+                FuelBar.color = new Color(174, 0f, 0f, Random.Range(0.6f, 0.9f));
                 break;
             case FuelStatus.Warning:
-                FuelBar.color = new Color(1, 1, 0f, 0.7f);
+                FuelBar.color = new Color(1, 1, 0f, 0.6f);
                 break;
             default:
-                FuelBar.color = new Color(1f, 0.5615012f, 0f, 0.6156863f);
+                FuelBar.color = new Color(1f, 0.5615012f, 0f, 0.6f);
                 break;
             }
     }

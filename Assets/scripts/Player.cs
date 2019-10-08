@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
 
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation,rotatingSpeed * Time.deltaTime );
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, mobileSpeed * Time.deltaTime);
-               
+                ResourceManager.Thrust();
             }
         }
         else ResourceManager.StartDelay();
