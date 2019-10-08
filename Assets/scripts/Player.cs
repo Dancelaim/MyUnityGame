@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     Vector3 startPosition;
     public float rotatingSpeed = 0.1F;
     bool routineFinished;
+    public Vector3 direction;
     public void Awake()
     {
         startPosition = transform.position;
@@ -52,10 +53,10 @@ public class Player : MonoBehaviour
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButton(0))
             {
                 Vector3 screenPosition = Input.mousePosition;
-                screenPosition.z = 250;
+                screenPosition.z = 150;
                 targetPosition = Input.mousePosition != null ? Camera.main.ScreenToWorldPoint(screenPosition) : Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
-                Vector3 direction = targetPosition - transform.position;
+                direction = targetPosition - transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 targetRotation.z = targetRotation.x = 0;
 
