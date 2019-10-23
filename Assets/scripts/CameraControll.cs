@@ -1,28 +1,17 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿//using UnityEngine;
+//using System.Collections;
 
-public class CameraControll : MonoBehaviour
-{
+//public class CameraControll : MonoBehaviour
+//{
 
-    //public GameObject player;
-    //private Vector3 offset;
-    //Vector3 screenPos;
-    //public float border;
+//    public GameObject player;
 
-
-    //void Start()
-    //{
-    //    offset = transform.position - player.transform.position;
-    //    screenPos = Camera.main.WorldToScreenPoint(player.transform.position);
-    //}
-
-    //void LateUpdate()
-    //{
-    //   if (screenPos.x < (0 + border) || screenPos.y < (0 + border) || screenPos.x > (Screen.width - border) || screenPos.z > (Screen.height - border))
-    //    {
-    //        Vector3 fixedPosition = player.transform.position + offset;
-    //        fixedPosition.y = 50;
-    //        transform.position = fixedPosition;
-    //    }
-    //}
-}
+//    public Vector3 offset;
+//    public float speed = 0.125f;
+//    void LateUpdate()
+//    {
+//        Vector3 targetPosition = player.transform.position + offset;
+//        targetPosition.y = 0;
+//        transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
+//    }
+//}

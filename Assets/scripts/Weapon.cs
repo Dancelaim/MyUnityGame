@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour
         {
                 AttackFinished = false;
                 var shotTransform = Instantiate(shotPrefab);
-                shotTransform.position = transform.position + new Vector3(2.1f, -0.82f, 1);
+                shotTransform.position = transform.position;
                 Move move = shotTransform.gameObject.GetComponent<Move>();
                 if (move) move.direction = this.transform.right;
                 yield return new WaitForSeconds(shootingRate);

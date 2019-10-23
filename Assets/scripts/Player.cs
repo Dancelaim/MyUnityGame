@@ -10,14 +10,11 @@ public class Player : MonoBehaviour
     private Vector3 movement;
     private Rigidbody rigidbodyComponent;
     public bool CanMove;
-    Vector3 startPosition;
     public float rotatingSpeed = 0.1F;
     bool routineFinished;
     public Vector3 direction;
-    public void Awake()
-    {
-        startPosition = transform.position;
-    }
+
+
 
     void Update()
     {
@@ -36,7 +33,9 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
-       PlayerMove();
+        GetComponentInChildren<Weapon>().Attack();
+
+        PlayerMove();
     }
 
     void OnDestroy()
@@ -46,11 +45,13 @@ public class Player : MonoBehaviour
 
     public void PlayerMove()
     {
+        StopCoroutine(SwipeController.Avoid());
+
         Vector3 targetPosition = transform.position;
 
         if (ResourceManager.Fuel > 0 && !ResourceManager.delay)
         {
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButton(0))
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary || Input.GetMouseButton(0))
             {
                 Vector3 screenPosition = Input.mousePosition;
                 screenPosition.z = 150;

@@ -56,5 +56,6 @@ public class InputController : MonoBehaviour
 
     void HandleLongPress(SwipeAction swipeAction)
     {
+        
     }
 }

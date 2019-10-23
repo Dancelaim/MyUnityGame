@@ -32,19 +32,10 @@ public class EnemyWeapon : MonoBehaviour
             
             var shotTransform = Instantiate(shotPrefab) as Transform;
 
+            var pos = transform.position;
+
+            shotTransform.position = pos;
             
-            if (isEnemy == true) {
-
-                var pos = transform.position + new Vector3(-2f, 0, 1);
-
-                shotTransform.position = pos;
-            }
-            else
-            {
-                var pos = transform.position + new Vector3(2.1f, -0.82f, 1);
-
-                shotTransform.position = pos;
-            }
 
             Shot shot = shotTransform.gameObject.GetComponent<Shot>();
             if (shot != null)
