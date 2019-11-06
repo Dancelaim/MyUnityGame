@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public float rotatingSpeed = 0.1F;
     bool routineFinished;
     public Vector3 direction;
+    public bool isMoving;
 
 
 
@@ -26,6 +27,8 @@ public class Player : MonoBehaviour
 
         if (hit.collider != null && hit.collider.enabled && GetComponentInChildren<Weapon>().enabled)
         {
+            StartCoroutine(SwipeController.Avoid(target: hit.collider ,rotatingSpeed : rotatingSpeed));
+
             GetComponentInChildren<Weapon>().Attack();
             SoundEffectsHelper.Instance.MakePlayerShotSound();
         }
@@ -33,8 +36,7 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
-        GetComponentInChildren<Weapon>().Attack();
-
+        //GetComponentInChildren<Weapon>().Attack();
         PlayerMove();
     }
 
@@ -49,12 +51,12 @@ public class Player : MonoBehaviour
 
         Vector3 targetPosition = transform.position;
 
-        if (ResourceManager.Fuel > 0 && !ResourceManager.delay)
+        if (ResourceManager.Fuel > 0 && !ResourceManager.delay && isMoving)
         {
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary || Input.GetMouseButton(0))
             {
                 Vector3 screenPosition = Input.mousePosition;
-                screenPosition.z = 150;
+                screenPosition.z = 100;
                 targetPosition = Input.mousePosition != null ? Camera.main.ScreenToWorldPoint(screenPosition) : Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
                 direction = targetPosition - transform.position;

@@ -23,60 +23,65 @@ public class SwipeController : MonoBehaviour
     {
         player = Ship.GetComponent<Player>();
         localShip = Ship;
-        screenBounds = Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 150));
+        screenBounds = Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 100));
         objectWidth = transform.GetComponentInChildren<BoxCollider>().bounds.extents.x; //extents = size of width / 2
         objectHeight = transform.GetComponentInChildren<BoxCollider>().bounds.extents.z; //extents = size of height / 2
     }
 
     public void Update()
     {
+        
         var touches = InputHelper.GetTouches();
         if (touches.Count > 0)
         {
             swipeAction = null;
-            //Touch t = Input.GetTouch(0)
             Touch t = touches[0];
 
-            if (t.phase == TouchPhase.Began || t.phase == TouchPhase.Stationary)
+            if (t.phase == TouchPhase.Began)
             {
                 startPos = new Vector2(t.position.x / (float)Screen.width, t.position.y / (float)Screen.width);
-                startTime = Time.time;
                 startTime = Time.time;
             }
             if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Stationary)
             {
-                if (Time.time - startTime > MAX_SWIPE_TIME) return;
-
-
-                Vector2 endPos = new Vector2(t.position.x / (float)Screen.width, t.position.y / (float)Screen.width);
-
-                Vector2 swipe = new Vector2(endPos.x - startPos.x, endPos.y - startPos.y);
-
-                if (swipe.magnitude < MIN_SWIPE_DISTANCE) // Too short swipe
-                    return;
-
-                if (Mathf.Abs(swipe.x) > Mathf.Abs(swipe.y))
-                { 
-                    if (swipe.x > 0)
-                    {
-                        swipeAction = "swipedRight";
-                    }
-                    else
-                    {
-                        swipeAction = "swipedLeft";
-                    }
+                if (Time.time - startTime > MAX_SWIPE_TIME)
+                {
+                    player.isMoving = true;
                 }
                 else
-                { 
-                    if (swipe.y > 0)
+                {
+                    player.isMoving = false;
+                    Vector2 endPos = new Vector2(t.position.x / (float)Screen.width, t.position.y / (float)Screen.width);
+
+                    Vector2 swipe = new Vector2(endPos.x - startPos.x, endPos.y - startPos.y);
+
+                    if (swipe.magnitude < MIN_SWIPE_DISTANCE) // Too short swipe
+                        return;
+
+                    if (Mathf.Abs(swipe.x) > Mathf.Abs(swipe.y))
                     {
-                        swipeAction = "swipedUp";
+                        if (swipe.x > 0)
+                        {
+                            swipeAction = "swipedRight";
+                        }
+                        else
+                        {
+                            swipeAction = "swipedLeft";
+                        }
                     }
                     else
                     {
-                        swipeAction = "swipedDown";
+                        if (swipe.y > 0)
+                        {
+                            swipeAction = "swipedUp";
+                        }
+                        else
+                        {
+                            swipeAction = "swipedDown";
+                        }
                     }
                 }
+                
             }
         }
 
@@ -104,12 +109,19 @@ public class SwipeController : MonoBehaviour
             }
         }
     }
-    public static IEnumerator Avoid(float Horizontal = 0,float Vertical = 0)
+    public static IEnumerator Avoid(float Horizontal = 0,float Vertical = 0 ,float rotatingSpeed = 0,Collider target =null)
     {
+        var targetAcquired = target.transform.position;
+        var direction = targetAcquired - localShip.transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        targetRotation.z = targetRotation.x = 0;
+
         float j = Horizontal != 0 ? Mathf.Abs(Horizontal) : Mathf.Abs(Vertical);
 
         for (int i= 0; i < j; i++)
         {
+            localShip.transform.rotation = Quaternion.RotateTowards(localShip.transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
+
             localShip.transform.position = Vector3.Lerp(localShip.transform.position, localShip.transform.position += new Vector3(Horizontal, 0, Vertical), Time.deltaTime);
             yield return new WaitForSeconds(0.0005f);
         }
@@ -121,7 +133,7 @@ public class SwipeController : MonoBehaviour
         viewPos.y = Mathf.Clamp(viewPos.z, 0 - objectWidth, screenBounds.z - objectWidth);
 
         viewPos.z = viewPos.y;
-        viewPos.y = -150;
+        viewPos.y = -100;
         transform.position = viewPos;
     }
 }

@@ -1233,7 +1233,7 @@ MonoBehaviour:
   MAX_SWIPE_TIME: 0.2
   Ship: {fileID: 1101594043}
   debugWithArrowKeys: 0
-  Distance: 25
+  Distance: 45
   Camera: {fileID: 2040838322}
 --- !u!23 &1101594049
 MeshRenderer:
@@ -2516,8 +2516,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739336991}
   m_LocalRotation: {x: -0.05966884, y: 0, z: -0, w: 0.9982183}
-  m_LocalPosition: {x: -1.5860429, y: -4.265344, z: -1013.5988}
-  m_LocalScale: {x: 1, y: 1.0154638, z: 0.99259967}
+  m_LocalPosition: {x: 0, y: 0, z: -800}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1772615994}
   - {fileID: 1885558551}
@@ -3385,7 +3385,7 @@ PrefabInstance:
     - target: {fileID: 2591605853981572467, guid: ffdb845e860ab4d489551dee6c0e2e80,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -150.19
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 2591605853981572467, guid: ffdb845e860ab4d489551dee6c0e2e80,
         type: 3}
