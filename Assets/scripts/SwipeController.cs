@@ -111,16 +111,22 @@ public class SwipeController : MonoBehaviour
     }
     public static IEnumerator Avoid(float Horizontal = 0,float Vertical = 0 ,float rotatingSpeed = 0,Collider target =null)
     {
-        var targetAcquired = target.transform.position;
-        var direction = targetAcquired - localShip.transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        targetRotation.z = targetRotation.x = 0;
+        Vector3 targetAcquired;
+        Vector3 direction;
+        Quaternion targetRotation = localShip.transform.rotation;
 
+        if (target)
+        {
+            targetAcquired = target.transform.position;
+            direction = targetAcquired - localShip.transform.position;
+            targetRotation = Quaternion.LookRotation(direction);
+            targetRotation.z = targetRotation.x = 0;
+        }
         float j = Horizontal != 0 ? Mathf.Abs(Horizontal) : Mathf.Abs(Vertical);
 
         for (int i= 0; i < j; i++)
         {
-            localShip.transform.rotation = Quaternion.RotateTowards(localShip.transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
+            if(targetRotation!= null)localShip.transform.rotation = Quaternion.RotateTowards(localShip.transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
 
             localShip.transform.position = Vector3.Lerp(localShip.transform.position, localShip.transform.position += new Vector3(Horizontal, 0, Vertical), Time.deltaTime);
             yield return new WaitForSeconds(0.0005f);

@@ -29,7 +29,7 @@ public class TrainingController : MonoBehaviour
         DisablePlayer(true,true);
         TurorialBox.GetComponentInChildren<Button>(true).gameObject.SetActive(false);
         Alien = FindObjectOfType<Enemy>();
-        Alien.GetComponentInChildren<Move>().speed.x = 0;
+        //Alien.GetComponentInChildren<Move>().speed.x = 0;
         isDestroyed = false;
     }
     private void Update()
@@ -53,7 +53,7 @@ public class TrainingController : MonoBehaviour
         {
             Progress[2] = true;
             DisablePlayer(true,true);
-            Alien.GetComponentInChildren<Move>().speed.x = 0;
+           // Alien.GetComponentInChildren<Move>().speed.x = 0;
             TurorialBox.gameObject.SetActive(true);
             StartCoroutine(DispayTutorialText(Text3));
         }
@@ -97,7 +97,7 @@ public class TrainingController : MonoBehaviour
             if(Progress[0] && !Progress[2])
             {
                 DisablePlayer(false);
-                if (Alien) Alien.GetComponentInChildren<Move>().speed.x = 10;
+                //if (Alien) Alien.GetComponentInChildren<Move>().speed.x = 10;
             }
             else if (Progress[2] && !Progress[3])
             {
@@ -133,32 +133,32 @@ public class TrainingController : MonoBehaviour
         DisablePlayer(state,state);
         GameObject.Find("Scripts").GetComponent<GameDifficulty>().enabled = !state;
         GameObject.Find("Scripts").GetComponent<Spawn>().enabled = !state;
-        foreach (Enemy Alien in  FindObjectsOfType<Enemy>())
-        {
-            if (state)
-            {
-                Alien.enabled = !state;
-                Alien.GetComponentInChildren<Move>().speed.x = 0;
-            }
-            else
-            {
-                Alien.enabled = !state;
-                Alien.GetComponentInChildren<Move>().speed.x = 25;
-            }
-        }
-        foreach (Wreckage wreckage in FindObjectsOfType<Wreckage>())
-        {
-            if (state)
-            {
-                wreckage.enabled = !state;
-                wreckage.GetComponentInChildren<Move>().speed.x = 0;
-            }
-            else
-            {
-                wreckage.enabled = !state;
-                wreckage.GetComponentInChildren<Move>().speed.x = 25;
-            }
-        }
+        //foreach (Enemy Alien in  FindObjectsOfType<Enemy>())
+        //{
+        //    if (state)
+        //    {
+        //        Alien.enabled = !state;
+        //        Alien.GetComponentInChildren<Move>().speed.x = 0;
+        //    }
+        //    else
+        //    {
+        //        Alien.enabled = !state;
+        //        Alien.GetComponentInChildren<Move>().speed.x = 25;
+        //    }
+        //}
+        //foreach (Wreckage wreckage in FindObjectsOfType<Wreckage>())
+        //{
+        //    if (state)
+        //    {
+        //        wreckage.enabled = !state;
+        //        wreckage.GetComponentInChildren<Move>().speed.x = 0;
+        //    }
+        //    else
+        //    {
+        //        wreckage.enabled = !state;
+        //        wreckage.GetComponentInChildren<Move>().speed.x = 25;
+        //    }
+        //}
 
     }
 }

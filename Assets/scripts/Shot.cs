@@ -7,16 +7,13 @@ public class Shot : MonoBehaviour
     public int damage;
     public bool isEnemyShot;
 
-    void Awake()
+    public float speed = 100;
+    public Vector3 direction;
+    private Rigidbody rigidbodyComponent;
+ 
+    void FixedUpdate()
     {
-        rendererComponent = GetComponent<SpriteRenderer>();
-    }
-
-    void Update()
-    {
-        if (!rendererComponent.IsVisibleFrom(Camera.main))
-        {
-            Destroy(gameObject);
-        }
+        rigidbodyComponent = GetComponent<Rigidbody>();
+        rigidbodyComponent.velocity = transform.forward * speed;
     }
 }

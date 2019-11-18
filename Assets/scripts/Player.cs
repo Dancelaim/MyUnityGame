@@ -14,11 +14,21 @@ public class Player : MonoBehaviour
     bool routineFinished;
     public Vector3 direction;
     public bool isMoving;
-
-
-
+    public ParticleSystem[] EngineSystems;
+    private float idleTime = 5f;
     void Update()
     {
+        if (idleTime > 0)
+        {
+            idleTime -= Time.deltaTime;
+        }
+        else
+        {
+            idleTime = 5f;
+            EngineController(1);
+        }
+        
+
         int layerMask = 1 << 8;
 
         RaycastHit hit;
@@ -27,16 +37,12 @@ public class Player : MonoBehaviour
 
         if (hit.collider != null && hit.collider.enabled && GetComponentInChildren<Weapon>().enabled)
         {
-            StartCoroutine(SwipeController.Avoid(target: hit.collider ,rotatingSpeed : rotatingSpeed));
-
-            GetComponentInChildren<Weapon>().Attack();
-            SoundEffectsHelper.Instance.MakePlayerShotSound();
+            //StartCoroutine(SwipeController.Avoid(target: hit.collider ,rotatingSpeed : rotatingSpeed));
         }
         FindObjectOfType<ResourceManager>().HpBarSchema(GetComponent<Health>().hp);
     }
     void FixedUpdate()
     {
-        //GetComponentInChildren<Weapon>().Attack();
         PlayerMove();
     }
 
@@ -62,20 +68,42 @@ public class Player : MonoBehaviour
                 direction = targetPosition - transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 targetRotation.z = targetRotation.x = 0;
+                
+                int layerMask = 1 << 9;
+                if (Physics.OverlapSphere(targetPosition, 1.5f, layerMask).Length < 1)
+                {
+                    float enginePower = 1;
+                    var distance = Vector3.Distance(transform.position, targetPosition);
+                    if (distance > 15)
+                    {
+                        enginePower = 2.5f;
+                    }
+                    else if (distance < 15 && distance > 5)
+                    {
+                        enginePower = 2f;
+                    }
+                    else if (distance < 10)
+                    {
+                        enginePower = 1.5f;
+                    }
 
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation,rotatingSpeed * Time.deltaTime );
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, mobileSpeed * Time.deltaTime);
-                ResourceManager.Thrust();
+                    EngineController(enginePower);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, mobileSpeed * Time.deltaTime);
+                    ResourceManager.Thrust();
+
+
+                }
             }
         }
         else ResourceManager.StartDelay();
-
-       
-            
-
-
-        if (Physics.OverlapSphere(targetPosition, 1f) == null) ResourceManager.Thrust();
-
+    }
+    public void EngineController(float enginePower)
+    {
+        foreach (ParticleSystem engSys in EngineSystems)
+        {
+            engSys.startLifetime = enginePower;
+        }
     }
 }
 

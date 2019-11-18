@@ -8,8 +8,9 @@ public class SpecialEffectsHelper : MonoBehaviour
 
   public ParticleSystem smokeEffect;
   public ParticleSystem fireEffect;
+  public ParticleSystem laserEffect;
 
-  void Awake()
+    void Awake()
   {
     
     if (Instance != null)
@@ -29,8 +30,6 @@ public class SpecialEffectsHelper : MonoBehaviour
     
     instantiate(fireEffect, position);
   }
-
- 
   private ParticleSystem instantiate(ParticleSystem prefab, Vector3 position)
   {
     ParticleSystem newParticleSystem = Instantiate(

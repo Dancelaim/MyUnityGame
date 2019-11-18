@@ -4,27 +4,16 @@
 public class Move : MonoBehaviour
 {
     
-    public Vector2 speed = new Vector2(10, 10);
-
-   
-    public Vector2 direction = new Vector2(-1, 0);
-
+    public float speed = 100;
+    public Vector2 direction;
     private Vector2 movement;
-    private Rigidbody2D rigidbodyComponent;
-
-    void Update()
-    {
-       
-        movement = new Vector2(
-          speed.x * direction.x,
-          speed.y * direction.y);
-    }
+    private Rigidbody rigidbodyComponent;
 
     void FixedUpdate()
     {
-        if (rigidbodyComponent == null) rigidbodyComponent = GetComponent<Rigidbody2D>();
+        rigidbodyComponent = GetComponent<Rigidbody>();
 
-      
         rigidbodyComponent.velocity = movement;
     }
+
 }

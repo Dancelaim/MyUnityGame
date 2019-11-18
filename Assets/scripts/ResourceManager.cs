@@ -21,10 +21,6 @@ public class ResourceManager : MonoBehaviour
         StatCollectionSender();
         FuelController();
     }
-    private void Awake()
-    {
-       var list = this.GetComponentInChildren<Image>();
-    }
     public void ScoreCounter(int reward)
     {
         if (ScoreText)
@@ -63,7 +59,6 @@ public class ResourceManager : MonoBehaviour
             Stats.StatCollection(CurrentHp, Score);
         }
     }
-
     #region Fuel Controller
     public void FuelRemainsCounter(float Fuel)
     {

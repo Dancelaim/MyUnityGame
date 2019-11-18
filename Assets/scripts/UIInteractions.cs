@@ -55,8 +55,8 @@ public class UIInteractions : MonoBehaviour
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetMouseButton(0))
         {
             Description.enabled = false;
-            GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
-            GameObject.Find("Scripts").GetComponent<GameDifficulty>().enabled = true;
+           // GameObject.Find("Scripts").GetComponent<Spawn>().enabled = true;
+            //GameObject.Find("Scripts").GetComponent<GameDifficulty>().enabled = true;
         }
     }
     public void ExitToMenu()
