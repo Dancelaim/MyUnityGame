@@ -19,6 +19,7 @@ public class SwipeController : MonoBehaviour
     private Vector3 screenBounds;
     private float objectWidth;
     private float objectHeight;
+    bool notEnoughFuel = false;
     private void Start()
     {
         player = Ship.GetComponent<Player>();
@@ -30,7 +31,6 @@ public class SwipeController : MonoBehaviour
 
     public void Update()
     {
-        
         var touches = InputHelper.GetTouches();
         if (touches.Count > 0)
         {
@@ -85,8 +85,10 @@ public class SwipeController : MonoBehaviour
             }
         }
 
-        if (swipeAction != null)
+        if (swipeAction != null && ResourceManager.Fuel > 10 && !ResourceManager.delay)
         {
+            player.isAvoiding = true;
+            StartCoroutine(ResourceManager.AvoidThrust(10));
             StopCoroutine(Avoid());
             switch (swipeAction)
             {
@@ -108,13 +110,16 @@ public class SwipeController : MonoBehaviour
                     break;
             }
         }
+        else if(ResourceManager.Fuel <= 10)
+        { //TO DO : Show warning Message or Alert picture of insufficient fuel
+            ResourceManager.StartDelay();
+        }
     }
     public static IEnumerator Avoid(float Horizontal = 0,float Vertical = 0 ,float rotatingSpeed = 0,Collider target =null)
     {
         Vector3 targetAcquired;
         Vector3 direction;
         Quaternion targetRotation = localShip.transform.rotation;
-
         if (target)
         {
             targetAcquired = target.transform.position;
@@ -131,6 +136,7 @@ public class SwipeController : MonoBehaviour
             localShip.transform.position = Vector3.Lerp(localShip.transform.position, localShip.transform.position += new Vector3(Horizontal, 0, Vertical), Time.deltaTime);
             yield return new WaitForSeconds(0.0005f);
         }
+        localShip.GetComponent<Player>().isAvoiding = false;
     }
     private void LateUpdate()
     {

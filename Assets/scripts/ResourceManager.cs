@@ -15,11 +15,11 @@ public class ResourceManager : MonoBehaviour
     public static float Fuel = 100;
     public static float burnRate = 15;
     public static bool delay = false;
-
     void Update()
     {
         StatCollectionSender();
         FuelController();
+        if(delay)EmergencyFuelRestore();
     }
     public void ScoreCounter(int reward)
     {
@@ -95,22 +95,26 @@ public class ResourceManager : MonoBehaviour
     {
         Fuel -= burnRate * Time.deltaTime;
     }
-    private static void EmergencyFuelRestore()
+    public static IEnumerator AvoidThrust(float fuelRequired)
     {
-        Fuel += 25f * Time.deltaTime;
+        for (int i = 0; i < fuelRequired; i++)
+        {
+            Fuel -= 1f;
+            yield return new WaitForSeconds(0.05f);
+        }
     }
-
+    public static void EmergencyFuelRestore()
+    {
+        Fuel += 20f * Time.deltaTime;
+        if(Fuel >=100) delay = false;
+    }
     public static void StartDelay()
     {
-        if (Fuel < 100)
-        {
-            delay = true;
-            EmergencyFuelRestore();
-        }
-        else delay = false;
+      delay = true;
     }
+    
     public enum FuelStatus
-    {
+    { 
         Normal = 0
         ,Warning = 1
         ,High = 2

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     bool routineFinished;
     public Vector3 direction;
     public bool isMoving;
+    public bool isAvoiding;
     public ParticleSystem[] EngineSystems;
     private float idleTime = 5f;
     void Update()
@@ -68,7 +69,7 @@ public class Player : MonoBehaviour
                 direction = targetPosition - transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 targetRotation.z = targetRotation.x = 0;
-                
+
                 int layerMask = 1 << 9;
                 if (Physics.OverlapSphere(targetPosition, 1.5f, layerMask).Length < 1)
                 {
@@ -91,12 +92,13 @@ public class Player : MonoBehaviour
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
                     transform.position = Vector3.MoveTowards(transform.position, targetPosition, mobileSpeed * Time.deltaTime);
                     ResourceManager.Thrust();
-
-
                 }
             }
         }
-        else ResourceManager.StartDelay();
+        else if (!isAvoiding && isMoving)
+        {
+            ResourceManager.StartDelay();
+        }
     }
     public void EngineController(float enginePower)
     {
