@@ -13,22 +13,28 @@ public class SwipeController : MonoBehaviour
     public bool debugWithArrowKeys = true;
     Vector2 startPos;
     float startTime;
-    public float Distance;
     private static GameObject localShip;
     public Camera Camera;
     private Vector3 screenBounds;
     private float objectWidth;
     private float objectHeight;
     bool notEnoughFuel = false;
+    public float avoidDistance;
+    static float localAvoidDistance;
+    public ParticleSystem frontRightThrustEngine;
+    public ParticleSystem frontLeftThrustEngine;
+    public ParticleSystem rearRightThrustEngine;
+    public ParticleSystem rearLeftThrustEngine;
+
     private void Start()
     {
+        localAvoidDistance = avoidDistance;
         player = Ship.GetComponent<Player>();
         localShip = Ship;
         screenBounds = Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 100));
         objectWidth = transform.GetComponentInChildren<BoxCollider>().bounds.extents.x; //extents = size of width / 2
         objectHeight = transform.GetComponentInChildren<BoxCollider>().bounds.extents.z; //extents = size of height / 2
     }
-
     public void Update()
     {
         var touches = InputHelper.GetTouches();
@@ -93,21 +99,25 @@ public class SwipeController : MonoBehaviour
             switch (swipeAction)
             {
                 case "swipedRight":
-                    StartCoroutine(Avoid(Distance,0));
+                    StartCoroutine(Avoid(localAvoidDistance, 0));
+                    frontLeftThrustEngine.Play();
+                    rearLeftThrustEngine.Play();
                     swipeAction = null;
                     break;
                 case "swipedLeft":
-                    StartCoroutine(Avoid(-Distance,0));
+                    StartCoroutine(Avoid(-localAvoidDistance, 0));
+                    frontRightThrustEngine.Play();
+                    rearRightThrustEngine.Play();
                     swipeAction = null;
                     break;
-                case "swipedUp":
-                    StartCoroutine(Avoid(0,Distance));
-                    swipeAction = null;
-                    break;
-                case "swipedDown":
-                    StartCoroutine(Avoid(0,-Distance));
-                    swipeAction = null;
-                    break;
+                //case "swipedUp":
+                //    StartCoroutine(Avoid(0,Distance));
+                //    swipeAction = null;
+                //    break;
+                //case "swipedDown":
+                //    StartCoroutine(Avoid(0,-Distance));
+                //    swipeAction = null;
+                //    break;
             }
         }
         else if(ResourceManager.Fuel <= 10)
@@ -117,25 +127,33 @@ public class SwipeController : MonoBehaviour
     }
     public static IEnumerator Avoid(float Horizontal = 0,float Vertical = 0 ,float rotatingSpeed = 0,Collider target =null)
     {
-        Vector3 targetAcquired;
-        Vector3 direction;
-        Quaternion targetRotation = localShip.transform.rotation;
-        if (target)
-        {
-            targetAcquired = target.transform.position;
-            direction = targetAcquired - localShip.transform.position;
-            targetRotation = Quaternion.LookRotation(direction);
-            targetRotation.z = targetRotation.x = 0;
-        }
-        float j = Horizontal != 0 ? Mathf.Abs(Horizontal) : Mathf.Abs(Vertical);
+        //Vector3 targetAcquired;
+        //Vector3 direction;
+        //Quaternion targetRotation = localShip.transform.rotation;
+        //if (target)
+        //{
+        //    targetAcquired = target.transform.position;
+        //    direction = targetAcquired - localShip.transform.position;
+        //    targetRotation = Quaternion.LookRotation(direction);
+        //    targetRotation.z = targetRotation.x = 0;
+        //}
+        //if(targetRotation!= null)localShip.transform.rotation = Quaternion.RotateTowards(localShip.transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
 
-        for (int i= 0; i < j; i++)
+        for (int i = 0; i < localAvoidDistance; i++)
         {
-            if(targetRotation!= null)localShip.transform.rotation = Quaternion.RotateTowards(localShip.transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
+            if (Horizontal > 0)
+            {
+                localShip.transform.position = Vector3.Lerp(localShip.transform.position, localShip.transform.right * Horizontal, Time.deltaTime);
+            }
+            else
+            {
+                localShip.transform.position = Vector3.Lerp(localShip.transform.position, localShip.transform.right * Horizontal, Time.deltaTime);
 
-            localShip.transform.position = Vector3.Lerp(localShip.transform.position, localShip.transform.position += new Vector3(Horizontal, 0, Vertical), Time.deltaTime);
-            yield return new WaitForSeconds(0.0005f);
+            }
+            yield return new WaitForSeconds(0.01f);
         }
+
+
         localShip.GetComponent<Player>().isAvoiding = false;
     }
     private void LateUpdate()
