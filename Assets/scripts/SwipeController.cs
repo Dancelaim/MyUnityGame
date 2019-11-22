@@ -21,11 +21,6 @@ public class SwipeController : MonoBehaviour
     bool notEnoughFuel = false;
     public float avoidDistance;
     static float localAvoidDistance;
-    public ParticleSystem frontRightThrustEngine;
-    public ParticleSystem frontLeftThrustEngine;
-    public ParticleSystem rearRightThrustEngine;
-    public ParticleSystem rearLeftThrustEngine;
-
     private void Start()
     {
         localAvoidDistance = avoidDistance;
@@ -34,9 +29,11 @@ public class SwipeController : MonoBehaviour
         screenBounds = Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 100));
         objectWidth = transform.GetComponentInChildren<BoxCollider>().bounds.extents.x; //extents = size of width / 2
         objectHeight = transform.GetComponentInChildren<BoxCollider>().bounds.extents.z; //extents = size of height / 2
+        
     }
     public void Update()
     {
+        EngineController EngContrl = GetComponent<EngineController>();
         var touches = InputHelper.GetTouches();
         if (touches.Count > 0)
         {
@@ -75,17 +72,17 @@ public class SwipeController : MonoBehaviour
                             swipeAction = "swipedLeft";
                         }
                     }
-                    else
-                    {
-                        if (swipe.y > 0)
-                        {
-                            swipeAction = "swipedUp";
-                        }
-                        else
-                        {
-                            swipeAction = "swipedDown";
-                        }
-                    }
+                    //else
+                    //{
+                    //    if (swipe.y > 0)
+                    //    {
+                    //        swipeAction = "swipedUp";
+                    //    }
+                    //    else
+                    //    {
+                    //        swipeAction = "swipedDown";
+                    //    }
+                    //}
                 }
                 
             }
@@ -95,19 +92,17 @@ public class SwipeController : MonoBehaviour
         {
             player.isAvoiding = true;
             StartCoroutine(ResourceManager.AvoidThrust(10));
-            StopCoroutine(Avoid());
+            StopCoroutine(Avoid(1));
             switch (swipeAction)
             {
                 case "swipedRight":
-                    StartCoroutine(Avoid(localAvoidDistance, 0));
-                    frontLeftThrustEngine.Play();
-                    rearLeftThrustEngine.Play();
+                    StartCoroutine(Avoid(localAvoidDistance));
+                    EngContrl.AvoidEffect(true);
                     swipeAction = null;
                     break;
                 case "swipedLeft":
-                    StartCoroutine(Avoid(-localAvoidDistance, 0));
-                    frontRightThrustEngine.Play();
-                    rearRightThrustEngine.Play();
+                    StartCoroutine(Avoid(-localAvoidDistance));
+                    EngContrl.AvoidEffect(false);
                     swipeAction = null;
                     break;
                 //case "swipedUp":
@@ -125,20 +120,8 @@ public class SwipeController : MonoBehaviour
             ResourceManager.StartDelay();
         }
     }
-    public static IEnumerator Avoid(float Horizontal = 0,float Vertical = 0 ,float rotatingSpeed = 0,Collider target =null)
+    public static IEnumerator Avoid(float Horizontal)
     {
-        //Vector3 targetAcquired;
-        //Vector3 direction;
-        //Quaternion targetRotation = localShip.transform.rotation;
-        //if (target)
-        //{
-        //    targetAcquired = target.transform.position;
-        //    direction = targetAcquired - localShip.transform.position;
-        //    targetRotation = Quaternion.LookRotation(direction);
-        //    targetRotation.z = targetRotation.x = 0;
-        //}
-        //if(targetRotation!= null)localShip.transform.rotation = Quaternion.RotateTowards(localShip.transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
-
         for (int i = 0; i < localAvoidDistance; i++)
         {
             if (Horizontal > 0)

@@ -1276,6 +1276,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2591605855078842575}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1101594052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101594043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528350c42a3005c47bf185d97cf33d8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1148819764
 GameObject:
   m_ObjectHideFlags: 0
@@ -2299,6 +2311,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c49b3039871fc35419147fde59805f84, type: 3}
   - {fileID: 21300000, guid: 0fd9b97d8b1a925429047215959f6791, type: 3}
   - {fileID: 21300000, guid: 864db8fc6f701d344a16be61e631186f, type: 3}
+  burnRate: 5
 --- !u!225 &1622190454
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3368,72 +3381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
         type: 3}
-      propertyPath: lengthInSec
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.textureMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.dieWithParticles
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.minMaxState
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxGradient.ctime0
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxGradient.key0.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxGradient.key0.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxGradient.key0.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxGradient.key1.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxGradient.key1.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636338163612929656, guid: ffdb845e860ab4d489551dee6c0e2e80,
-        type: 3}
-      propertyPath: TrailModule.colorOverLifetime.maxGradient.key1.b
+      propertyPath: moveWithTransform
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2591605853981572467, guid: ffdb845e860ab4d489551dee6c0e2e80,
@@ -3492,53 +3440,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
-      propertyPath: ManeuveringEngineSystems.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
       propertyPath: Camera
       value: 
       objectReference: {fileID: 2040838322}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
-      propertyPath: ManeuveringEngineSystems.Array.data[0]
-      value: 
-      objectReference: {fileID: 453344223}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
-      propertyPath: ManeuveringEngineSystems.Array.data[1]
-      value: 
-      objectReference: {fileID: 1729735502}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
-      propertyPath: ManeuveringEngineSystems.Array.data[2]
-      value: 
-      objectReference: {fileID: 1149062192}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
-      propertyPath: ManeuveringEngineSystems.Array.data[3]
-      value: 
-      objectReference: {fileID: 360919516}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
-      propertyPath: rearLeftThrustEngine
-      value: 
-      objectReference: {fileID: 453344223}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
-      propertyPath: rearRightThrustEngine
-      value: 
-      objectReference: {fileID: 1149062192}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
+    - target: {fileID: 2591605853981572464, guid: ffdb845e860ab4d489551dee6c0e2e80,
+        type: 3}
+      propertyPath: mobileSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2350986583018967108, guid: ffdb845e860ab4d489551dee6c0e2e80,
+        type: 3}
       propertyPath: frontRightThrustEngine
       value: 
       objectReference: {fileID: 1729735502}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
+    - target: {fileID: 2350986583018967108, guid: ffdb845e860ab4d489551dee6c0e2e80,
+        type: 3}
       propertyPath: frontLeftThrustEngine
       value: 
       objectReference: {fileID: 360919516}
-    - target: {fileID: 1101594048, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}
-      propertyPath: avoidDistance
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 953439242459557453, guid: ffdb845e860ab4d489551dee6c0e2e80,
+    - target: {fileID: 2350986583018967108, guid: ffdb845e860ab4d489551dee6c0e2e80,
         type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: rearRightThrustEngine
+      value: 
+      objectReference: {fileID: 1149062192}
+    - target: {fileID: 2350986583018967108, guid: ffdb845e860ab4d489551dee6c0e2e80,
+        type: 3}
+      propertyPath: rearLeftThrustEngine
+      value: 
+      objectReference: {fileID: 453344223}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffdb845e860ab4d489551dee6c0e2e80, type: 3}

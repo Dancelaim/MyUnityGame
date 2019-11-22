@@ -13,8 +13,8 @@ public class ResourceManager : MonoBehaviour
     public Sprite[] ShipSchematics;
     private int CurrentHp;
     public static float Fuel = 100;
-    public static float burnRate = 15;
     public static bool delay = false;
+    public float burnRate = 5;
     void Update()
     {
         StatCollectionSender();
@@ -83,17 +83,18 @@ public class ResourceManager : MonoBehaviour
     public void FuelController()
     {
         if (Fuel >65)
-            FuelBarWarning(ResourceManager.FuelStatus.Normal);
+            FuelBarWarning(FuelStatus.Normal);
         else if(Fuel < 65 && Fuel > 35)
-            FuelBarWarning(ResourceManager.FuelStatus.Warning);
+            FuelBarWarning(FuelStatus.Warning);
         else if (Fuel < 35)
-            FuelBarWarning(ResourceManager.FuelStatus.High);
+            FuelBarWarning(FuelStatus.High);
 
         FuelRemainsCounter(Fuel);
     }
-    public static void Thrust()
+    public void Thrust()
     {
-        Fuel -= burnRate * Time.deltaTime;
+        EngineController EngContrl = FindObjectOfType<EngineController>();
+        if(EngContrl.isActive)Fuel -= burnRate * Time.deltaTime;
     }
     public static IEnumerator AvoidThrust(float fuelRequired)
     {

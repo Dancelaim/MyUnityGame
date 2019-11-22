@@ -15,8 +15,13 @@ public class Player : MonoBehaviour
     public Vector3 direction;
     public bool isMoving;
     public bool isAvoiding;
-    public ParticleSystem[] EngineSystems;
     private float idleTime = 5f;
+    EngineController EngContrl;
+    bool movingInProgress;
+    private void Start()
+    {
+        EngContrl = GetComponent<EngineController>();
+    }
     void Update()
     {
         if (idleTime > 0)
@@ -26,19 +31,7 @@ public class Player : MonoBehaviour
         else
         {
             idleTime = 5f;
-            EngineController(1);
-        }
-        
-
-        int layerMask = 1 << 8;
-
-        RaycastHit hit;
-
-        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask);
-
-        if (hit.collider != null && hit.collider.enabled && GetComponentInChildren<Weapon>().enabled)
-        {
-            //StartCoroutine(SwipeController.Avoid(target: hit.collider ,rotatingSpeed : rotatingSpeed));
+            EngContrl.MainEngineEffect(1);
         }
         FindObjectOfType<ResourceManager>().HpBarSchema(GetComponent<Health>().hp);
     }
@@ -54,14 +47,16 @@ public class Player : MonoBehaviour
 
     public void PlayerMove()
     {
-        StopCoroutine(SwipeController.Avoid());
-
-        Vector3 targetPosition = transform.position;
+        StopCoroutine(SwipeController.Avoid(1));
+         
+        Vector3 targetPosition;
 
         if (ResourceManager.Fuel > 0 && !ResourceManager.delay && isMoving)
         {
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary || Input.GetMouseButton(0))
             {
+                TargetController.busyTimer = 0.75f;
+
                 Vector3 screenPosition = Input.mousePosition;
                 screenPosition.z = 100;
                 targetPosition = Input.mousePosition != null ? Camera.main.ScreenToWorldPoint(screenPosition) : Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
@@ -70,29 +65,31 @@ public class Player : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 targetRotation.z = targetRotation.x = 0;
 
-                int layerMask = 1 << 9;
-                if (Physics.OverlapSphere(targetPosition, 1.5f, layerMask).Length < 1)
-                {
-                    float enginePower = 1;
-                    var distance = Vector3.Distance(transform.position, targetPosition);
-                    if (distance > 15)
+                int playerLayerMask = 1 << 9;
+                int EnemyLayerMask = 1 << 8;
+                if (Physics.OverlapSphere(targetPosition, 4.5f, playerLayerMask | EnemyLayerMask).Length < 1)
                     {
-                        enginePower = 2.5f;
-                    }
-                    else if (distance < 15 && distance > 5)
-                    {
-                        enginePower = 2f;
-                    }
-                    else if (distance < 10)
-                    {
-                        enginePower = 1.5f;
-                    }
+                        float enginePower = 1;
+                        var distance = Vector3.Distance(transform.position, targetPosition);
+                        if (distance > 15)
+                        {
+                            enginePower = 2.5f;
+                        }
+                        else if (distance < 15 && distance > 5)
+                        {
+                            enginePower = 2f;
+                        }
+                        else if (distance < 10)
+                        {
+                            enginePower = 1.5f;
+                        }
+                        EngContrl.ThrustEngineEffect(targetRotation.eulerAngles, transform.rotation.eulerAngles);
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
+                        FindObjectOfType<ResourceManager>().Thrust();
 
-                    EngineController(enginePower);
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotatingSpeed * Time.deltaTime);
-                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, mobileSpeed * Time.deltaTime);
-                    ResourceManager.Thrust();
-                }
+                        EngContrl.MainEngineEffect(enginePower);
+                        if (!movingInProgress) StartCoroutine(FullThrottle(targetPosition, distance));
+                    }
             }
         }
         else if (!isAvoiding && isMoving)
@@ -100,12 +97,17 @@ public class Player : MonoBehaviour
             ResourceManager.StartDelay();
         }
     }
-    public void EngineController(float enginePower)
+    public IEnumerator FullThrottle(Vector3 targetPosition,float distance)
     {
-        foreach (ParticleSystem engSys in EngineSystems)
+        yield return new WaitForSeconds(0.35f);
+        movingInProgress = true;
+        for (int i = 0; i < distance; i++)
         {
-            engSys.startLifetime = enginePower;
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, mobileSpeed * Time.deltaTime);
+            yield return new WaitForSeconds(0.01f);
+            movingInProgress = false;
         }
+        
     }
 }
 
