@@ -46,30 +46,15 @@ public class Weapon : MonoBehaviour
     {
         LaserEffect.Play();
         yield return new WaitForSeconds(particleExecutionTime);
-        var shot = Instantiate(shotPrefab);
+        var shotTransform = Instantiate(shotPrefab);
+        Shot shot = shotTransform.gameObject.GetComponent<Shot>();
         shot.transform.rotation = this.transform.rotation;
-        shot.position = this.transform.position;
+        shot.direction = this.transform.forward;
+        shotTransform.position = this.transform.position;
         SoundEffectsHelper.Instance.MakePlayerShotSound();
         LaserEffect.Stop();
         ReloadTime = Reload;
     }
-    //Machine Gun
-    //IEnumerator Fire()
-    //{
-    //    AttackStarted = true;
-    //    for (int i = 0; i < FireArms; i++)
-    //    {
-    //        AttackFinished = false;
-    //        var shotTransform = Instantiate(shotPrefab);
-    //        Shot shot = shotTransform.gameObject.GetComponent<Shot>();
-    //        shot.transform.rotation = this.transform.rotation;
-    //        shot.direction = this.transform.right;
-    //        shotTransform.position = transform.position;
-    //        yield return new WaitForSeconds(shootingRate);
-    //    }
-    //    ReloadTime = Reload;
-    //    FireArms = Ammo;
-    //    AttackStarted = false;
-    //}
+
 }
 

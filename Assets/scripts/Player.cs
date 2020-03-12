@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 
                 direction = targetPosition - transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                targetRotation.z = targetRotation.x = 0;
+                targetRotation.x = 0;
 
                 int playerLayerMask = 1 << 9;
                 int EnemyLayerMask = 1 << 8;
@@ -88,8 +88,9 @@ public class Player : MonoBehaviour
                         FindObjectOfType<ResourceManager>().Thrust();
 
                         EngContrl.MainEngineEffect(enginePower);
-                        if (!movingInProgress) StartCoroutine(FullThrottle(targetPosition, distance));
-                    }
+
+                    if (!movingInProgress) StartCoroutine(FullThrottle(targetPosition, distance));                    
+                }
             }
         }
         else if (!isAvoiding && isMoving)
@@ -99,7 +100,6 @@ public class Player : MonoBehaviour
     }
     public IEnumerator FullThrottle(Vector3 targetPosition,float distance)
     {
-        yield return new WaitForSeconds(0.35f);
         movingInProgress = true;
         for (int i = 0; i < distance; i++)
         {

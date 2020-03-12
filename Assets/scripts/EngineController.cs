@@ -35,18 +35,39 @@ public class EngineController : MonoBehaviour
     }
     public void ThrustEngineEffect(Vector3 targetRotation, Vector3 playerRotation)
     {
-        float rotationDifference = targetRotation.y - playerRotation.y;
-        frontRightThrustEngine.startLifetime = frontLeftThrustEngine.startLifetime = rearRightThrustEngine.startLifetime = rearLeftThrustEngine.startLifetime = 0.15f;
+        bool isEnemy = GetComponentInParent<EnemyPirate>();
 
-        if (rotationDifference > 1)
+        float rotationDifference = targetRotation.y - playerRotation.y;
+
+        if (!isEnemy)
         {
-            frontLeftThrustEngine.Play();
-            rearRightThrustEngine.Play();
+            frontRightThrustEngine.startLifetime = frontLeftThrustEngine.startLifetime = rearRightThrustEngine.startLifetime = rearLeftThrustEngine.startLifetime = 0.15f;
+
+            if (rotationDifference > 4)
+            {
+                frontLeftThrustEngine.Play();
+                rearRightThrustEngine.Play();
+
+            }
+            else if (rotationDifference < -4)
+            {
+                frontRightThrustEngine.Play();
+                rearLeftThrustEngine.Play();
+
+            }
         }
-        else if (rotationDifference < -1)
+        else
         {
-            frontRightThrustEngine.Play();
-            rearLeftThrustEngine.Play();
+            if (rotationDifference > 4)
+            {
+                frontLeftThrustEngine.Play();
+
+            }
+            else if (rotationDifference < -4)
+            {
+                frontRightThrustEngine.Play();
+
+            }
         }
         
     }

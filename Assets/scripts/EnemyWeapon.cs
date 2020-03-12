@@ -5,62 +5,38 @@ public class EnemyWeapon : MonoBehaviour
 {
 
     public Transform shotPrefab;
-    public float shootingRate = 0.25f;
+    public float shootingRate;
+    public float reloadTime;
     private float shootCooldown;
-    void Start()
-    {
-        shootCooldown = 0f;
-    }
-
+    public int Ammo;
+    private int FireArms;
+    private bool AttackStarted;
     void Update()
     {
-        if (shootCooldown > 0)
+        if (shootCooldown >= 0)
         {
             shootCooldown -= Time.deltaTime;
         }
-
-        
-
-        
     }
-    public void Attack(bool isEnemy)
+    public void Attack()
     {
-        if (CanAttack)
+        if(shootCooldown<0 && !AttackStarted) StartCoroutine(Fire());
+    }
+
+    IEnumerator Fire()
+    {
+        AttackStarted = true;
+        for (int i = 0; i < FireArms; i++)
         {
-            shootCooldown = shootingRate;
-
-            
-            var shotTransform = Instantiate(shotPrefab) as Transform;
-
-            var pos = transform.position;
-
-            shotTransform.position = pos;
-            
-
+            var shotTransform = Instantiate(shotPrefab);
             Shot shot = shotTransform.gameObject.GetComponent<Shot>();
-            if (shot != null)
-            {
-                shot.isEnemyShot = isEnemy;
-            }
-
-            
-            Move move = shotTransform.gameObject.GetComponent<Move>();
-            if (move != null)
-            {
-                move.direction = this.transform.right;
-               
-               
-
-            }
+            shot.direction = this.transform.forward;
+            shotTransform.position = transform.position;
+            yield return new WaitForSeconds(shootingRate);
         }
-    }
-    
-    public bool CanAttack
-    {
-        get
-        {
-            return shootCooldown <= 0f;
-        }
+        shootCooldown = reloadTime;
+        FireArms = Ammo;
+        AttackStarted = false;
     }
 }
 

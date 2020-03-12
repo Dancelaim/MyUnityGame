@@ -16,7 +16,7 @@ public class TrainingController : MonoBehaviour
     public string Text3;
     public string Text4;
     public List<bool> Progress = new List<bool>();
-    Enemy Alien;
+    EnemyPirate Alien;
     bool isDestroyed;
 
     public void Awake()
@@ -28,7 +28,7 @@ public class TrainingController : MonoBehaviour
         GameObject.Find("Scripts").GetComponent<GameDifficulty>().enabled = false;
         DisablePlayer(true,true);
         TurorialBox.GetComponentInChildren<Button>(true).gameObject.SetActive(false);
-        Alien = FindObjectOfType<Enemy>();
+        Alien = FindObjectOfType<EnemyPirate>();
         //Alien.GetComponentInChildren<Move>().speed.x = 0;
         isDestroyed = false;
     }
@@ -102,7 +102,7 @@ public class TrainingController : MonoBehaviour
             else if (Progress[2] && !Progress[3])
             {
                 DisablePlayer(false, false);
-                if (Alien) Alien.GetComponentInChildren<Collider2D>().enabled = Alien.GetComponentInChildren<Enemy>().enabled = true;
+                if (Alien) Alien.GetComponentInChildren<Collider2D>().enabled = Alien.GetComponentInChildren<EnemyPirate>().enabled = true;
             }
             else 
             {
@@ -133,7 +133,7 @@ public class TrainingController : MonoBehaviour
         DisablePlayer(state,state);
         GameObject.Find("Scripts").GetComponent<GameDifficulty>().enabled = !state;
         GameObject.Find("Scripts").GetComponent<Spawn>().enabled = !state;
-        //foreach (Enemy Alien in  FindObjectsOfType<Enemy>())
+        //foreach (EnemyPirate Alien in  FindObjectsOfType<EnemyPirate>())
         //{
         //    if (state)
         //    {

@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc24ee8f6e8e3cf48af14d736dfd8325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  isEnemyShot: 0
+  damage: 1
   speed: 100
   direction: {x: 0, y: 0, z: 0}
+  isEnemyShot: 0
+  liveTime: 1.5
 --- !u!54 &2124934146201248345
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -72,11 +73,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1960013920979703724}
     m_Modifications:
-    - target: {fileID: 4604587661747758338, guid: d7489186cb4b1c34a8d3c2bb18962cf2,
-        type: 3}
-      propertyPath: m_Name
-      value: gg_bullet
-      objectReference: {fileID: 0}
     - target: {fileID: 701877430419838737, guid: d7489186cb4b1c34a8d3c2bb18962cf2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -146,6 +142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4604587661747758338, guid: d7489186cb4b1c34a8d3c2bb18962cf2,
+        type: 3}
+      propertyPath: m_Name
+      value: gg_bullet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7489186cb4b1c34a8d3c2bb18962cf2, type: 3}

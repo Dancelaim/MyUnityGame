@@ -27,7 +27,7 @@ public class Health : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Enemy enemy = isEnemy ? this.GetComponent<Enemy>() : collision != null ? collision.gameObject.GetComponent<Enemy>() : null;
+        EnemyPirate enemy = isEnemy ? this.GetComponent<EnemyPirate>() : collision != null ? collision.gameObject.GetComponent<EnemyPirate>() : null;
         Health enemyHealth = enemy ? enemy.GetComponent<Health>() : null;
    
         Player player = isPlayer ? this.GetComponent<Player>() : collision != null ? collision.gameObject.GetComponent<Player>() : null;

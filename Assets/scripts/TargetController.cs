@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TargetController : MonoBehaviour
 {
-    public static Collider Target;
+    public static Vector3 targetPos;
     static bool IsLocked;
     EngineController EngContrl;
     bool isBusy;
@@ -13,20 +13,6 @@ public class TargetController : MonoBehaviour
     {
         IsLocked = false;
         EngContrl = GetComponent<EngineController>();
-    }
-
-    public static void LockTarget(Collider NewTarget)
-    {
-        Target = NewTarget;
-
-        if (Target != null)
-        {
-            IsLocked = true;
-        }
-        else
-        {
-            IsLocked = false;
-        }
     }
     private void Update()
     {
@@ -52,22 +38,35 @@ public class TargetController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayerMask))
             {
-                LockTarget(hit.collider);
+                LockTarget(hit.collider.transform.position);
             }
+        }
+    }
+    public static void LockTarget(Vector3 NewTarget)
+    {
+        targetPos = NewTarget;
+
+        if (targetPos != null)
+        {
+            IsLocked = true;
+        }
+        else
+        {
+            IsLocked = false;
         }
     }
     public void LeadTarget()
     {
         if (!isBusy)
         {
-            var direction = Target.transform.position - transform.position;
+            Vector3 direction = targetPos - transform.position;
+
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            targetRotation.z = targetRotation.x = 0;
 
             EngContrl.ThrustEngineEffect(targetRotation.eulerAngles, transform.rotation.eulerAngles);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 300 * Time.deltaTime);
             FindObjectOfType<ResourceManager>().Thrust();
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 300 * Time.deltaTime);
         }
-        
     }
 }

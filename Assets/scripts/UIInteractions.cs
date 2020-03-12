@@ -96,11 +96,11 @@ public class UIInteractions : MonoBehaviour
     }
     public static void StopSpawn()
     {
-        GameObject.Find("Scripts").GetComponent<Spawn>().enabled = false;
+       // GameObject.Find("Scripts").GetComponent<Spawn>().enabled = false;
     }
     public  static void ShowMark()
     {
-        Mark.gameObject.SetActive(true);
+        //Mark.gameObject.SetActive(true);
     }
     public void NextLvl()
     {
