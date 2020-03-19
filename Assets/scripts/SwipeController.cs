@@ -27,8 +27,8 @@ public class SwipeController : MonoBehaviour
         player = Ship.GetComponent<Player>();
         localShip = Ship;
         screenBounds = Camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 100));
-        objectWidth = transform.GetComponentInChildren<BoxCollider>().bounds.extents.x; //extents = size of width / 2
-        objectHeight = transform.GetComponentInChildren<BoxCollider>().bounds.extents.z; //extents = size of height / 2
+        objectWidth = transform.GetComponentInChildren<Collider>().bounds.extents.x; //extents = size of width / 2
+        objectHeight = transform.GetComponentInChildren<Collider>().bounds.extents.z; //extents = size of height / 2
         
     }
     public void Update()

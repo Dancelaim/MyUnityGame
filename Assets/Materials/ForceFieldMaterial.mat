@@ -7,8 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: boom
-  m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: ForceFieldMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 90a43bfc8d0c91842aa60b883e590218,
+    type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,11 +20,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+    - Texture2D_BFEE8A11:
+        m_Texture: {fileID: 2800000, guid: cfb06d3e075c4b54aae92eeec27120a5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _InvFade: 1
+    - Vector1_2D6B8963: -1.46
+    - Vector1_71F939D1: 0
+    - Vector1_7281D57F: 0.05
+    - Vector1_AAB2E1DF: 55
+    - Vector1_E21E14BE: 1.5
     m_Colors:
-    - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - Color_D3500422: {r: 0, g: 0.7370587, b: 8.8588295, a: 0}
+    - Vector2_C19D63C9: {r: 3, g: 3, b: 0, a: 0}

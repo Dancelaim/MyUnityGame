@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 
                 direction = targetPosition - transform.position;
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                targetRotation.x = 0;
+                targetRotation.x = targetRotation.z = 0;
 
                 int playerLayerMask = 1 << 9;
                 int EnemyLayerMask = 1 << 8;
